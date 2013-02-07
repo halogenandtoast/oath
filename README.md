@@ -1,4 +1,4 @@
-# Monban
+# Monban 門番
 
 TODO: Write a gem description
 
