@@ -1,8 +1,9 @@
+require 'bcrypt'
 require 'monban/sign_in'
 require 'monban/sign_out'
 require 'monban/sign_up'
 require 'monban/authentication'
-require 'bcrypt'
+require 'active_support/concern'
 
 module Monban
   module ControllerHelpers
