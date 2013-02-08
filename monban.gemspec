@@ -6,10 +6,10 @@ require 'monban/version'
 Gem::Specification.new do |gem|
   gem.name          = "monban"
   gem.version       = Monban::VERSION
-  gem.authors       = ["halogenandtoast"]
+  gem.authors       = ["halogenandtoast", "calebthompson"]
   gem.email         = ["halogenandtoast@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{simple rails authentication}
+  gem.summary       = %q{Making rails authentication as simple as possible}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
