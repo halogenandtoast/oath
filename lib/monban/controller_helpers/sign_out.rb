@@ -1,11 +1,11 @@
 module Monban
   class SignOut
-    def initialize cookies
-      @cookies = cookies
+    def initialize warden
+      @warden = warden
     end
 
     def perform
-      @cookies.delete(:user_id)
+      @warden.logout
     end
   end
 end

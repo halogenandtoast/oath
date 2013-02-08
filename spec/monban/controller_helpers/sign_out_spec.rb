@@ -2,11 +2,10 @@ require 'spec_helper'
 require 'monban/controller_helpers/sign_out'
 
 describe Monban::SignOut, '#perform' do
-  it 'removes the cookie' do
-    cookies = { user_id: true }
+  it 'signs out the user' do
+    warden = double()
+    warden.should_receive(:logout)
 
-    Monban::SignOut.new(cookies).perform
-
-    cookies.should_not have_key(:user_id)
+    Monban::SignOut.new(warden).perform
   end
 end

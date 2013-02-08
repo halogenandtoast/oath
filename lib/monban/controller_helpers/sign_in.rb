@@ -1,14 +1,12 @@
 module Monban
   class SignIn
-    def initialize user, cookies
+    def initialize user, warden
       @user = user
-      @cookies = cookies
+      @warden = warden
     end
 
     def perform
-      if @user
-        @cookies.signed[:user_id] = @user.id
-      end
+      @warden.set_user(@user)
     end
   end
 end

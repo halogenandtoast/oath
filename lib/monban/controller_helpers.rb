@@ -13,11 +13,11 @@ module Monban
     end
 
     def sign_in user
-      SignIn.new(user, cookies).perform
+      SignIn.new(user, warden).perform
     end
 
     def sign_out
-      SignOut.new(cookies).perform
+      SignOut.new(warden).perform
     end
 
     def sign_up user_params
@@ -35,16 +35,16 @@ module Monban
       Authentication.new(user, password).authenticated?
     end
 
+    def warden
+      env['warden']
+    end
+
     def current_user
-      User.find_by_id user_session_variable
+      warden.user
     end
 
     def signed_in?
       current_user
-    end
-
-    def user_session_variable
-      cookies.signed[:user_id]
     end
 
     def require_login
