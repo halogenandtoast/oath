@@ -13,11 +13,11 @@ module Monban
     end
 
     def sign_in user
-      SignIn.new(user, env).perform
+      SignIn.new(user, cookies).perform
     end
 
     def sign_out
-      SignOut.new(env).perform
+      SignOut.new(cookies).perform
     end
 
     def sign_up user_params
@@ -49,7 +49,7 @@ module Monban
 
     def require_login
       unless signed_in?
-        redirect_to root_path
+        redirect_to '/sign_in'
       end
     end
   end
