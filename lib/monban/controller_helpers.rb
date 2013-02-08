@@ -27,8 +27,15 @@ module Monban
     def authenticate_session session_params
       email = session_params[:email]
       password = session_params[:password]
-      user = User.find_by_email(email)
-      authenticate user, password
+      if user = User.find_by_email(email)
+        if authenticate user, password
+          user
+        else
+          false
+        end
+      else
+        false
+      end
     end
 
     def authenticate user, password
