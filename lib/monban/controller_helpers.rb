@@ -2,7 +2,7 @@ require 'bcrypt'
 require 'monban/controller_helpers/sign_in'
 require 'monban/controller_helpers/sign_out'
 require 'monban/controller_helpers/sign_up'
-require 'monban/authentication'
+require 'monban/controller_helpers/authentication'
 require 'active_support/concern'
 
 module Monban

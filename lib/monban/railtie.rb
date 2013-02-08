@@ -1,4 +1,3 @@
-require 'monban'
 require 'warden'
 
 module Monban
