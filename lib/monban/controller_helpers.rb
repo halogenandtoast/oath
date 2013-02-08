@@ -1,7 +1,7 @@
 require 'bcrypt'
-require 'monban/sign_in'
-require 'monban/sign_out'
-require 'monban/sign_up'
+require 'monban/controller_helpers/sign_in'
+require 'monban/controller_helpers/sign_out'
+require 'monban/controller_helpers/sign_up'
 require 'monban/authentication'
 require 'active_support/concern'
 
