@@ -6,7 +6,7 @@ module Monban
     end
 
     def authenticated?
-       BCrypt::Password.new(@user.password_digest) == @unencrypted_password
+      Monban.compare_password(@user.password_digest, @unencrypted_password)
     end
   end
 end

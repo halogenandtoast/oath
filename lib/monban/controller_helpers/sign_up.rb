@@ -1,12 +1,19 @@
 module Monban
   class SignUp
     def initialize user_params
-      @email = user_params[:email]
-      @password_digest = BCrypt::Password.create(user_params[:password])
+      unencrypted_password = user_params.delete(password_field)
+      password_digest = Monban.encrypt_password(unencrypted_password)
+      @user_params = user_params.merge(password_digest: password_digest)
     end
 
     def perform
-      User.create(email: @email, password_digest: @password_digest)
+      Monban.user_class.create(@user_params.to_hash)
+    end
+
+    private
+
+    def password_field
+      Monban.config.user_password_field
     end
   end
 end
