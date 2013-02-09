@@ -19,12 +19,12 @@ module Monban
     end
   end
 
-  def self.compare_password(digest, password)
-    config.password_comparison.call(digest, password)
+  def self.compare_token(digest, token)
+    config.token_comparison.call(digest, token)
   end
 
-  def self.encrypt_password(password)
-    config.encryption_method.call(password)
+  def self.encrypt_token(token)
+    config.encryption_method.call(token)
   end
 
   def self.user_class
