@@ -1,4 +1,3 @@
-require "pry"
 require "monban/version"
 require "monban/configuration"
 require "monban/controller_helpers"
