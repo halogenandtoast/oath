@@ -3,6 +3,7 @@ require "monban/configuration"
 require "monban/controller_helpers"
 require "monban/railtie"
 require "monban/warden_setup"
+require "monban/field_map"
 require "monban/strategies/password_strategy"
 require "active_support/core_ext/module/attribute_accessors"
 
@@ -28,5 +29,10 @@ module Monban
 
   def self.user_class
     config.user_class.constantize
+  end
+
+  def self.lookup(params, field_map)
+    fields = FieldMap.new(params, field_map).to_fields
+    user_class.where(fields).first
   end
 end

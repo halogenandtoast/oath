@@ -5,11 +5,19 @@ module Monban
       @unencrypted_token = unencrypted_token
     end
 
-    def authenticated?
-      Monban.compare_token(@user.send(token_store_field), @unencrypted_token)
+    def perform
+      if authenticated?
+        @user
+      else
+        false
+      end
     end
 
     private
+
+    def authenticated?
+      @user && Monban.compare_token(@user.send(token_store_field), @unencrypted_token)
+    end
 
     def token_store_field
       Monban.config.user_token_store_field

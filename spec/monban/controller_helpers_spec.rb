@@ -48,11 +48,44 @@ module Monban
       @dummy.sign_up user_params
     end
 
+    it 'authenticates a session' do
+      session_params = double()
+      session_params.should_receive(:delete).with('password').and_return('password')
+      user = double()
+      authentication = double()
+      authentication.should_receive(:perform).and_return(user)
+      Monban.should_receive(:lookup).with(session_params, nil).and_return(user)
+      Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
+      @dummy.authenticate_session(session_params).should == user
+    end
+
+    it 'authenticates a session against multiple fields' do
+      session_params = { 'email_or_username' => 'foo', 'password' => 'password' }
+      field_map = { email_or_username: [:email, :username] }
+      user = double()
+      authentication = double()
+      authentication.should_receive(:perform).and_return(user)
+      Monban.should_receive(:lookup).with(session_params, field_map).and_return(user)
+      Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
+      @dummy.authenticate_session(session_params, field_map).should == user
+    end
+
+    it 'returns false when it could not authenticate the user' do
+      session_params = double()
+      session_params.should_receive(:delete).with('password').and_return('password')
+      user = double()
+      authentication = double()
+      authentication.should_receive(:perform).and_return(false)
+      Monban.should_receive(:lookup).with(session_params, nil).and_return(user)
+      Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
+      @dummy.authenticate_session(session_params).should == false
+    end
+
     it 'performs an authenticate' do
       user = double()
       password = double()
       authentication = double()
-      authentication.should_receive(:authenticated?)
+      authentication.should_receive(:perform)
       Authentication.should_receive(:new).with(user, password).and_return(authentication)
       @dummy.authenticate user, password
     end

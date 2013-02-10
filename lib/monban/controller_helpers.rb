@@ -24,22 +24,14 @@ module Monban
       SignUp.new(user_params).perform
     end
 
-    def authenticate_session session_params
-      email = session_params[:email]
-      password = session_params[:password]
-      if user = User.find_by_email(email)
-        if authenticate user, password
-          user
-        else
-          false
-        end
-      else
-        false
-      end
+    def authenticate_session session_params, field_map = nil
+      user = Monban.lookup(session_params, field_map)
+      password = session_params.delete(Monban.config.user_token_field)
+      authenticate(user, password)
     end
 
     def authenticate user, password
-      Authentication.new(user, password).authenticated?
+      Authentication.new(user, password).perform
     end
 
     def warden

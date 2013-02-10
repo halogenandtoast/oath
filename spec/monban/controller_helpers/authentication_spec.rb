@@ -7,7 +7,7 @@ describe Monban::Authentication, '#authentication' do
     user = stub(password_digest: password_digest)
     auth = Monban::Authentication.new(user, 'password')
 
-    auth.should be_authenticated
+    expect(auth.perform).to eq(user)
   end
 
   it 'is not authenticated for the wrong password' do
@@ -15,6 +15,11 @@ describe Monban::Authentication, '#authentication' do
     user = stub(password_digest: password_digest)
     auth = Monban::Authentication.new(user, 'drowssap')
 
-    auth.should_not be_authenticated
+    expect(auth.perform).to eq(false)
+  end
+
+  it 'is not authenticated without a user' do
+    auth = Monban::Authentication.new(nil, 'password')
+    expect(auth.perform).to eq(false)
   end
 end
