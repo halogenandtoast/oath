@@ -5,10 +5,14 @@ module Monban
     class WardenMock
       def user; end
     end
+    class Flash < Struct.new(:notice)
+    end
+
     class Dummy
-      attr_reader :redirected
+      attr_reader :redirected, :flash
       def initialize warden
         @warden = warden
+        @flash = Flash.new
         @redirected = false
       end
       def redirect_to path
@@ -104,6 +108,7 @@ module Monban
       @warden.should_receive(:user).and_return(false)
       @dummy.require_login
       expect(@dummy.redirected).to eq(true)
+      expect(@dummy.flash.notice).to eq(Monban.config.sign_in_notice)
     end
 
     it 'does not redirect when signed_in' do
@@ -117,4 +122,3 @@ module Monban
     end
   end
 end
-
