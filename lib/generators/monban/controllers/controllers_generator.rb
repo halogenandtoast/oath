@@ -6,18 +6,16 @@ module Monban
       source_root File.expand_path("../templates", __FILE__)
 
       def copy_controllers
-        copy_file 'sessions_controller.rb', 'app/controllers/session_controller.rb'
-        copy_file 'users_controller.rb', 'app/controllers/users_controller.rb'
+        template 'app/controllers/sessions_controller.rb', 'app/controllers/sessions_controller.rb', config
+        template 'app/controllers/users_controller.rb', 'app/controllers/users_controller.rb', config
       end
 
-      def add_routes
-        route("resources :users, only: [:new, :create]")
-        route("resource :session, only: [:new, :create, :destroy]")
-      end
+      private
 
-      def add_views
-        copy_file 'views/users/new.html.erb', 'app/views/users/new.html.erb'
-        copy_file 'views/sessions/new.html.erb', 'app/views/sessions/new.html.erb'
+      def config
+        @_config ||= {
+          use_strong_parameters: yes?("Using strong_parameters?")
+        }
       end
     end
   end
