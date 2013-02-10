@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-<% if config[:using_strong_parameters] -%>
+<% if config[:use_strong_parameters] -%>
     params.require(:session).permit(:email, :password)
 <% else -%>
     params[:session]

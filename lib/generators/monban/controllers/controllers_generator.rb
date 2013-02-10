@@ -14,8 +14,16 @@ module Monban
 
       def config
         @_config ||= {
-          use_strong_parameters: yes?("Using strong_parameters?")
+          use_strong_parameters: using_strong_parameters
         }
+      end
+
+      def using_strong_parameters
+        if Kernel.const_defined?("StrongParameters")
+          true
+        else
+          yes?("Using strong_parameters?")
+        end
       end
     end
   end
