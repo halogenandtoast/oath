@@ -1,19 +1,11 @@
-require 'rails/generators/base'
 require 'rails/generators/active_record'
+require 'generators/monban/controllers/controllers_generator'
 
 module Monban
   module Generators
-    class ScaffoldGenerator < Rails::Generators::Base
+    class ScaffoldGenerator < ControllersGenerator
       include Rails::Generators::Migration
-      source_root File.expand_path("../templates", __FILE__)
-
-      hook_for :controllers, required: true do |instance, controllers|
-        binding.pry
-      end
-
-      def setup_controllers
-        invoke "monban:controllers"
-      end
+      source_root File.expand_path("../../templates", __FILE__)
 
       def add_routes
         route("resources :users, only: [:new, :create]")
@@ -39,14 +31,6 @@ module Monban
 
       def add_model
         template 'app/models/user.rb', 'app/models/user.rb', config
-      end
-
-      private
-
-      def config
-        @_config ||= {
-          use_strong_parameters: yes?("Using strong_parameters?")
-        }
       end
     end
   end
