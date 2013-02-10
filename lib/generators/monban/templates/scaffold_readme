@@ -1,0 +1,4 @@
+
+    Final Steps
+    run:
+      rake db:migrate

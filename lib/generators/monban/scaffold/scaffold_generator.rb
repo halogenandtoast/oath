@@ -32,6 +32,11 @@ module Monban
       def add_model
         template 'app/models/user.rb', 'app/models/user.rb', config
       end
+
+      def display_readme
+        readme 'scaffold_readme'
+      end
+
     end
   end
 end
