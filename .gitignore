@@ -1,3 +1,4 @@
 spec/rails_app/log/*
 spec/rails_app/tmp/*
 *.sqlite3
+pkg
