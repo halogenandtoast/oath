@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["halogenandtoast@gmail.com"]
   gem.description   = %q{simple rails authentication}
   gem.summary       = %q{Making rails authentication as simple as possible}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/halogenandtoast/monban"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
