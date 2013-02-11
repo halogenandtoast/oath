@@ -9,8 +9,8 @@ Monban makes authentication simple:
 
 - Uses warden
 - Provides convenient controller helpers
+- Provides a rails generator for default controllers and views
 - TODO: Very customizable
-- TODO: provides a generator for default controllers and views
 
 Monban doesn't do the following:
 
@@ -28,6 +28,14 @@ Monban was designed to work with Rails > 3.1. Add this line to your Gemfile:
 Then inside of your ApplicationController add the following:
 
     include Monban::ControllerHelpers
+
+You may also generate a scaffold to start with:
+
+    rails g monban:scaffold
+
+This will generate a bare bones starting point. If you don't want the full stack you can just generate some controllers with:
+
+    rails g monban:controllers
 
 ## Usage
 
@@ -55,6 +63,32 @@ These helpers:
 And this filter:
 
 - `require_login`
+
+### Advanced Functionality
+
+You may perform a look up on a user using multiple fields by doing something like the following:
+
+    class SessionsController < ApplicationController
+      def create
+        if user = authenticate_session(session_params, email_or_username: [:email, :username])
+          sign_in user
+          redirect_to root_path
+        else
+          flash.now.notice = "Invalid username or password"
+          render :new
+        end
+      end
+
+      private
+
+      def session_params
+        params.require(:session).permit(:email_or_username, :password)
+      end
+
+    end
+
+This will allow the user to enter either their username or email to login
+
 
 ## Contributing
 
