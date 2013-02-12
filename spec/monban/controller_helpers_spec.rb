@@ -53,12 +53,11 @@ module Monban
     end
 
     it 'authenticates a session' do
-      session_params = double()
-      session_params.should_receive(:delete).with('password').and_return('password')
+      session_params = { 'password' => 'password', 'email' => 'a@b.com' }
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(user)
-      Monban.should_receive(:lookup).with(session_params, nil).and_return(user)
+      Monban.should_receive(:lookup).with({'email' => 'a@b.com'}, nil).and_return(user)
       Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params).should == user
     end
