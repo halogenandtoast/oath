@@ -1,0 +1,4 @@
+== 0.3.0
+
+* Fixed bug where password wasn't deleted from session params which would
+cause lookup to fail
