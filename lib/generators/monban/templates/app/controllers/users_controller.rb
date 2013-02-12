@@ -1,16 +1,14 @@
 class UsersController < ApplicationController
+  respond_to :html
+
   def new
     @user = User.new
   end
 
   def create
-    user = sign_up(user_params)
-    if sign_in(user)
-      redirect_to root_path
-    else
-      @user = user
-      render :new
-    end
+    @user = sign_up(user_params)
+    sign_in(@user)
+    respond_with @user, location: root_path
   end
 
   private
