@@ -1,3 +1,7 @@
+== 0.4.0 (pending)
+* Cleaned up generated controllers
+* Use find_by_id instead of find so invalid sessions don't cause apps to crash
+
 == 0.3.0
 
 * Fixed bug where password wasn't deleted from session params which would cause lookup to fail
