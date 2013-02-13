@@ -68,14 +68,15 @@ module Monban
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(user)
-      Monban.should_receive(:lookup).with(session_params, field_map).and_return(user)
+      Monban.should_receive(:lookup).with(session_params.except('password'), field_map).and_return(user)
       Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params, field_map).should == user
     end
 
     it 'returns false when it could not authenticate the user' do
       session_params = double()
-      session_params.should_receive(:delete).with('password').and_return('password')
+      session_params.should_receive(:fetch).with('password').and_return('password')
+      session_params.should_receive(:except).with('password').and_return(session_params)
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(false)

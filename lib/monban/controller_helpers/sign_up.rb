@@ -1,9 +1,9 @@
 module Monban
   class SignUp
     def initialize user_params
-      unencrypted_token = user_params.delete(token_field)
+      unencrypted_token = user_params.slice(token_field)
       token_digest = Monban.encrypt_token(unencrypted_token)
-      @user_params = user_params.merge(token_store_field.to_sym => token_digest)
+      @user_params = user_params.except(token_field).merge(token_store_field.to_sym => token_digest)
     end
 
     def perform

@@ -1,6 +1,7 @@
 == 0.4.0 (pending)
 * Cleaned up generated controllers
 * Use find_by_id instead of find so invalid sessions don't cause apps to crash
+* Hashes passed in are no longer mutated via delete
 
 == 0.3.0
 
