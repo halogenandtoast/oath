@@ -3,13 +3,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = authenticate_session(session_params)
-      sign_in user
-      redirect_to root_path
-    else
-      flash.now.notice = "Invalid username or password"
-      render :new
-    end
+    user = authenticate_session(session_params)
+    sign_in(user) or set_flash_message
+    respond_with user, location: root_path
   end
 
   def destroy
@@ -18,6 +14,10 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def set_flash_message
+    flash.now.notice = "Invalid username or password"
+  end
 
   def session_params
 <% if config[:use_strong_parameters] -%>
