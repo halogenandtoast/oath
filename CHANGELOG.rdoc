@@ -1,8 +1,8 @@
-== 0.4.0 (pending)
+== 0.0.4
 * Cleaned up generated controllers
 * Use find_by_id instead of find so invalid sessions don't cause apps to crash
 * Hashes passed in are no longer mutated via delete
 
-== 0.3.0
+== 0.0.3
 
 * Fixed bug where password wasn't deleted from session params which would cause lookup to fail
