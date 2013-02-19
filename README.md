@@ -1,5 +1,9 @@
 # Monban 門番
 
+[![Build Status](https://travis-ci.org/halogenandtoast/monban.png?branch=master)](https://travis-ci.org/halogenandtoast/monban)
+[![Code Climate](https://codeclimate.com/github/halogenandtoast/monban.png)](https://codeclimate.com/github/halogenandtoast/monban)
+
+
 Monban is designed to be very simple and extensible user authentication. It's goal is to give all the power to the developer instead of
 forcing them to make Monban work with their system
 

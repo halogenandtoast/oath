@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    monban (0.0.1)
+    monban (0.0.3)
       bcrypt-ruby
       rails
       warden
@@ -144,6 +144,7 @@ DEPENDENCIES
   capybara
   monban!
   pry
+  rake
   rspec
   rspec-rails
   sqlite3
