@@ -1,8 +1,12 @@
+== 0.0.5 (pending)
+* [FIX] Scaffolded SessionsController should have respond_to.
+* [FIX] SignUp should get the value instead of slicing.
+
 == 0.0.4
-* Cleaned up generated controllers
-* Use find_by_id instead of find so invalid sessions don't cause apps to crash
-* Hashes passed in are no longer mutated via delete
+* Cleaned up generated controllers.
+* Use find_by_id instead of find so invalid sessions don't cause apps to crash.
+* Hashes passed in are no longer mutated via delete.
 
 == 0.0.3
 
-* Fixed bug where password wasn't deleted from session params which would cause lookup to fail
+* Fixed bug where password wasn't deleted from session params which would cause lookup to fail.
