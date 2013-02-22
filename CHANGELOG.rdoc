@@ -1,4 +1,4 @@
-== 0.0.5 (pending)
+== 0.0.5
 * [FIX] Scaffolded SessionsController should have respond_to.
 * [FIX] SignUp should get the value instead of slicing.
 
