@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'rails'
+  gem.add_dependency 'rails', '>= 3.2'
   gem.add_dependency 'bcrypt-ruby'
   gem.add_dependency 'warden'
   gem.add_development_dependency 'rake'
