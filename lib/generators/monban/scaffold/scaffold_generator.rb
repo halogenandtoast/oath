@@ -17,10 +17,6 @@ module Monban
         copy_file 'app/views/sessions/new.html.erb'
       end
 
-      def copy_migration
-        migration_template 'db/migrate/create_users.rb'
-      end
-
       def add_helper_module_to_application_controller
         inject_into_class "app/controllers/application_controller.rb", ApplicationController, "  include Monban::ControllerHelpers\n"
       end
@@ -30,13 +26,12 @@ module Monban
       end
 
       def add_model
-        template 'app/models/user.rb', 'app/models/user.rb', config
+        generate 'model', 'user email password_digest'
       end
 
       def display_readme
         readme 'scaffold_readme'
       end
-
     end
   end
 end
