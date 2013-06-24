@@ -19,11 +19,19 @@ module Monban
       end
 
       def using_strong_parameters
-        if Kernel.const_defined?("StrongParameters")
+        if rails4? || strong_parameters_gem?
           true
         else
           yes?("Using strong_parameters?")
         end
+      end
+
+      def strong_parameters_gem?
+        Kernel.const_defined?("StrongParameters")
+      end
+
+      def rails4?
+         Rails::VERSION::MAJOR == 4
       end
     end
   end
