@@ -101,6 +101,7 @@ module Monban
 
     it 'returns signed_in?' do
       @warden.should_receive(:user)
+      @dummy.should_not_receive(:current_user)
       @dummy.signed_in?
     end
 

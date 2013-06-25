@@ -43,7 +43,7 @@ module Monban
     end
 
     def signed_in?
-      current_user
+      warden.user
     end
 
     def require_login
