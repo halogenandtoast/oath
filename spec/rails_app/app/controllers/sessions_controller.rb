@@ -2,10 +2,11 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by_email(params[:session][:email])
+    user = User.where(email: params[:session][:email]).first
 
     if authenticate(user, params[:session][:password])
       sign_in user
+      redirect_to posts_path
     else
       redirect_to root_path, notice: "Invalid email or password"
     end

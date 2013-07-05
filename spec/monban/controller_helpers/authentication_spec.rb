@@ -4,7 +4,7 @@ require 'monban/controller_helpers/authentication'
 describe Monban::Authentication, '#authentication' do
   it 'is authenticated for a valid password' do
     password_digest = BCrypt::Password.create('password')
-    user = stub(password_digest: password_digest)
+    user = double(password_digest: password_digest)
     auth = Monban::Authentication.new(user, 'password')
 
     expect(auth.perform).to eq(user)
@@ -12,7 +12,7 @@ describe Monban::Authentication, '#authentication' do
 
   it 'is not authenticated for the wrong password' do
     password_digest = BCrypt::Password.create('password')
-    user = stub(password_digest: password_digest)
+    user = double(password_digest: password_digest)
     auth = Monban::Authentication.new(user, 'drowssap')
 
     expect(auth.perform).to eq(false)
