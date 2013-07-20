@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'monban/controller_helpers/sign_in'
+require 'monban/services/sign_in'
 
 describe Monban::SignIn, '#perform' do
   it 'signs the user in' do

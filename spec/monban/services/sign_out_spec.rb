@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'monban/controller_helpers/sign_out'
+require 'monban/services/sign_out'
 
 describe Monban::SignOut, '#perform' do
   it 'signs out the user' do

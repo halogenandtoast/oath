@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'monban/controller_helpers/authentication'
+require 'monban/services/authentication'
 
 describe Monban::Authentication, '#authentication' do
   it 'is authenticated for a valid password' do

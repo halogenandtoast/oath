@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'monban/controller_helpers/sign_up'
+require 'monban/services/sign_up'
 
 describe Monban::SignUp, '#perform' do
   it 'creates a user with the right parameters' do
