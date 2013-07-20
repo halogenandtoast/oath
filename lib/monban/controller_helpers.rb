@@ -9,7 +9,11 @@ module Monban
     end
 
     def sign_in user
-      SignIn.new(user, warden).perform
+      SignIn.new(user, warden).perform.tap do |status|
+        if status && block_given?
+          yield
+        end
+      end
     end
 
     def sign_out
@@ -17,7 +21,11 @@ module Monban
     end
 
     def sign_up user_params
-      SignUp.new(user_params).perform
+      SignUp.new(user_params).perform.tap do |status|
+        if status && block_given?
+          yield
+        end
+      end
     end
 
     def authenticate_session session_params, field_map = nil

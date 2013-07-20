@@ -30,11 +30,22 @@ module Monban
     end
 
     it 'performs a sign in' do
-      user = double()
-      sign_in = double()
-      sign_in.should_receive(:perform)
-      SignIn.should_receive(:new).with(user, @warden).and_return(sign_in)
+      user = stub_sign_in
       @dummy.sign_in user
+    end
+
+    it 'runs the block when user is signed in' do
+      user = stub_sign_in
+      expectation = double()
+      expectation.should_receive(:success)
+      @dummy.sign_in(user) { expectation.success }
+    end
+
+    it 'does not run the block when user can not be signed in' do
+      user = stub_sign_in(false)
+      expectation = double()
+      expectation.should_not_receive(:failure)
+      @dummy.sign_in(user) { expectation.failure }
     end
 
     it 'performs a sign out' do
@@ -45,11 +56,22 @@ module Monban
     end
 
     it 'performs a sign_up' do
-      user_params = double()
-      sign_up = double()
-      sign_up.should_receive(:perform)
-      SignUp.should_receive(:new).with(user_params).and_return(sign_up)
+      user_params = stub_sign_up
       @dummy.sign_up user_params
+    end
+
+    it 'runs the block when user is signed up' do
+      user_params = stub_sign_up
+      expectation = double()
+      expectation.should_receive(:success)
+      @dummy.sign_up(user_params) { expectation.success }
+    end
+
+    it 'does not run the block when user can not be signed up' do
+      user_params = stub_sign_up(false)
+      expectation = double()
+      expectation.should_not_receive(:failure)
+      @dummy.sign_up(user_params) { expecation.failure }
     end
 
     it 'authenticates a session' do
@@ -120,6 +142,22 @@ module Monban
 
     it 'returns warden' do
       @dummy.warden.should == @warden
+    end
+
+    def stub_sign_in(success = true)
+      user = double()
+      sign_in = double()
+      sign_in.should_receive(:perform).and_return(success)
+      SignIn.should_receive(:new).with(user, @warden).and_return(sign_in)
+      user
+    end
+
+    def stub_sign_up(success = true)
+      user_params = double()
+      sign_up = double()
+      sign_up.should_receive(:perform).and_return(success)
+      SignUp.should_receive(:new).with(user_params).and_return(sign_up)
+      user_params
     end
   end
 end
