@@ -25,7 +25,7 @@ Monban doesn't do the following:
 
 ## Installation
 
-Monban was designed to work with Rails > 3.1. Add this line to your Gemfile:
+Monban was designed to work with Rails > 4.0. Add this line to your Gemfile:
 
     gem 'monban'
 
@@ -43,10 +43,10 @@ This will generate a bare bones starting point. If you don't want the full stack
 
 ## Usage
 
-Monban does currently have some expectations, but these will change. Here are the current requirements:
+Monban does currently have some out of the box expectations, but you can configure any of these:
 
-- Your model must be called `User`
-- You must have an `email` and `password_digest` column on your `User`
+- By default the model should be called `User`
+- You should have an `email` and `password_digest` column on your `User`
 - Passwords will be run through BCrypt
 
 ### Controller Additions
@@ -74,16 +74,16 @@ You may perform a look up on a user using multiple fields by doing something lik
 
     class SessionsController < ApplicationController
       def create
-        if user = authenticate_session(session_params, email_or_username: [:email, :username])
-          sign_in user
-          redirect_to root_path
-        else
-          flash.now.notice = "Invalid username or password"
-          render :new
-        end
+        user = authenticate_session(session_params, email_or_username: [:email, :username])
+        sign_in(user) or set_flash_message
+        respond_with user, location: root_path
       end
 
       private
+
+      def set_flash_message
+        flash.now.notice = "Invalid username or password"
+      end
 
       def session_params
         params.require(:session).permit(:email_or_username, :password)
@@ -93,6 +93,11 @@ You may perform a look up on a user using multiple fields by doing something lik
 
 This will allow the user to enter either their username or email to login
 
+### Limitations
+
+Here are a few of the current limitations of monban:
+
+- Monban assumes you only have one user model.
 
 ## Contributing
 
