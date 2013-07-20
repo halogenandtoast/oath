@@ -1,5 +1,6 @@
 require "monban/version"
 require "monban/configuration"
+require "monban/services"
 require "monban/controller_helpers"
 require "monban/railtie"
 require "monban/warden_setup"
