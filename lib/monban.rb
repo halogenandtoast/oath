@@ -12,12 +12,9 @@ module Monban
   mattr_accessor :warden_config
   mattr_accessor :config
 
-  def self.initialize warden_config
-    self.warden_config = warden_config
-    self.config = Monban::Configuration.new
-    if block_given?
-      yield config
-    end
+  def self.initialize warden_config, &block
+    setup_config(&block)
+    setup_warden_config(warden_config)
   end
 
   def self.compare_token(digest, token)
@@ -35,5 +32,19 @@ module Monban
   def self.lookup(params, field_map)
     fields = FieldMap.new(params, field_map).to_fields
     user_class.where(fields).first
+  end
+
+  private
+
+  def self.setup_config
+    self.config = Monban::Configuration.new
+    if block_given?
+      yield config
+    end
+  end
+
+  def self.setup_warden_config(warden_config)
+    warden_config.failure_app = self.config.failure_app
+    self.warden_config = warden_config
   end
 end

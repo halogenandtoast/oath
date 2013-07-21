@@ -9,7 +9,7 @@ module Monban
     end
 
     def sign_in user
-      SignIn.new(user, warden).perform.tap do |status|
+      Monban.config.sign_in_service.new(user, warden).perform.tap do |status|
         if status && block_given?
           yield
         end
@@ -17,11 +17,11 @@ module Monban
     end
 
     def sign_out
-      SignOut.new(warden).perform
+      Monban.config.sign_out_service.new(warden).perform
     end
 
     def sign_up user_params
-      SignUp.new(user_params).perform.tap do |status|
+      Monban.config.sign_up_service.new(user_params).perform.tap do |status|
         if status && block_given?
           yield
         end
@@ -35,7 +35,7 @@ module Monban
     end
 
     def authenticate user, password
-      Authentication.new(user, password).perform
+      Monban.config.authentication_service.new(user, password).perform
     end
 
     def warden
