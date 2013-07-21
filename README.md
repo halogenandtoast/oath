@@ -75,15 +75,13 @@ You may perform a look up on a user using multiple fields by doing something lik
     class SessionsController < ApplicationController
       def create
         user = authenticate_session(session_params, email_or_username: [:email, :username])
-        sign_in(user) or set_flash_message
-        respond_with user, location: root_path
+        sign_in(user) do
+          redirect_to(root_path) and return
+        end
+        render :new
       end
 
       private
-
-      def set_flash_message
-        flash.now.notice = "Invalid username or password"
-      end
 
       def session_params
         params.require(:session).permit(:email_or_username, :password)

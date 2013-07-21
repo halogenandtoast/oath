@@ -7,8 +7,10 @@ class UsersController < ApplicationController
 
   def create
     @user = sign_up(user_params)
-    sign_in(@user)
-    respond_with @user, location: root_path
+    sign_in(@user) do
+      respond_with(@user, location: root_path) and return
+    end
+    render :new
   end
 
   private
