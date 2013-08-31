@@ -35,8 +35,8 @@ module Monban
   end
 
   def self.test_mode!
-    config.encryption_method = -> (password) { password }
-    config.token_comparison = -> (digest, unencrypted_password) { digest == unencrypted_password }
+    config.encryption_method = ->(password) { password }
+    config.token_comparison = ->(digest, unencrypted_password) { digest == unencrypted_password }
   end
 
   private
