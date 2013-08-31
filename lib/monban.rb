@@ -34,6 +34,11 @@ module Monban
     user_class.where(fields).first
   end
 
+  def self.test_mode!
+    config.encryption_method = -> (password) { password }
+    config.token_comparison = -> (digest, unencrypted_password) { digest == unencrypted_password }
+  end
+
   private
 
   def self.setup_config
