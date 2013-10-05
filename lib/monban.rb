@@ -12,6 +12,10 @@ module Monban
   mattr_accessor :warden_config
   mattr_accessor :config
 
+  module Test
+    autoload :Helpers, "monban/test/helpers"
+  end
+
   def self.initialize warden_config, &block
     setup_config(&block)
     setup_warden_config(warden_config)
@@ -35,6 +39,7 @@ module Monban
   end
 
   def self.test_mode!
+    Warden.test_mode!
     config.encryption_method = ->(password) { password }
     config.token_comparison = ->(digest, unencrypted_password) { digest == unencrypted_password }
   end

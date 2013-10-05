@@ -68,7 +68,39 @@ And this filter:
 
 - `require_login`
 
-### Advanced Functionality
+## Usage in Tests
+
+### Test mode
+
+Monban provides the follow:
+
+```ruby
+Monban.test_mode!
+```
+
+Which will change password encryption to provide plaintext responses instead of using BCrypt. This will allow you to write factories using the password_digest field:
+
+```ruby
+FactoryGirl.define do
+  factory :user do
+    username 'wombat'
+    password_digest 'password'
+  end
+end
+
+### Spec helpers
+
+A couple of convenience methods are available in your tests.
+
+```ruby
+require 'monban/test/helpers'
+
+RSpec.configure do |config|
+  config.include Monban::Test::Helpers, type: :controller
+end
+```
+
+## Advanced Functionality
 
 You may perform a look up on a user using multiple fields by doing something like the following:
 
