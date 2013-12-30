@@ -97,7 +97,7 @@ A couple of convenience methods are available in your tests.
 require 'monban/test/helpers'
 
 RSpec.configure do |config|
-  config.include Monban::Test::Helpers, type: :controller
+  config.include Monban::Test::Helpers, type: :feature
 end
 ```
 
