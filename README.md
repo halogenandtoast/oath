@@ -87,6 +87,7 @@ FactoryGirl.define do
     password_digest 'password'
   end
 end
+```
 
 ### Spec helpers
 
