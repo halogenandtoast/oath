@@ -10,17 +10,20 @@ module Monban
 
       it 'performs a sign in' do
         user = double(id: 1)
-        dummy = Dummy.new
-        dummy.sign_in user
-        expect(dummy.warden.user).to eq(user)
+        dummy = sign_in(user)
+        expect(dummy.user).to eq(user)
       end
 
       it 'performs a sign out' do
-        user = double(id: 1)
-        dummy = Dummy.new
-        dummy.sign_in user
+        dummy = sign_in
         dummy.sign_out
-        expect(dummy.warden.user).to eq(nil)
+        expect(dummy.user).to eq(nil)
+      end
+
+      def sign_in(user = double(id: 1))
+        Dummy.new.tap do |dummy|
+          dummy.sign_in user
+        end
       end
     end
   end

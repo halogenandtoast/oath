@@ -2,10 +2,11 @@ module Monban
   module Test
     module Helpers
       def warden
-        @warden ||= begin
-          manager = Warden::Manager.new(nil)
-          Warden::Proxy.new({'rack.session' => {}}, manager)
-        end
+        @warden ||= Warden::Proxy.new({'rack.session' => {}}, manager)
+      end
+
+      def manager
+        @manager ||= Warden::Manager.new(nil)
       end
 
       def sign_in user
@@ -14,6 +15,10 @@ module Monban
 
       def sign_out
         Monban.config.sign_out_service.new(warden).perform
+      end
+
+      def user
+        warden.user
       end
     end
   end
