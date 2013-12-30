@@ -75,30 +75,30 @@ module Monban
     end
 
     it 'authenticates a session' do
-      session_params = { 'password' => 'password', 'email' => 'a@b.com' }
+      session_params = { password: 'password', email: 'a@b.com' }
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(user)
-      Monban.should_receive(:lookup).with({'email' => 'a@b.com'}, nil).and_return(user)
+      Monban.should_receive(:lookup).with({email: 'a@b.com'}, nil).and_return(user)
       Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params).should == user
     end
 
     it 'authenticates a session against multiple fields' do
-      session_params = { 'email_or_username' => 'foo', 'password' => 'password' }
+      session_params = { email_or_username: 'foo', password: 'password' }
       field_map = { email_or_username: [:email, :username] }
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(user)
-      Monban.should_receive(:lookup).with(session_params.except('password'), field_map).and_return(user)
+      Monban.should_receive(:lookup).with(session_params.except(:password), field_map).and_return(user)
       Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params, field_map).should == user
     end
 
     it 'returns false when it could not authenticate the user' do
       session_params = double()
-      session_params.should_receive(:fetch).with('password').and_return('password')
-      session_params.should_receive(:except).with('password').and_return(session_params)
+      session_params.should_receive(:fetch).with(:password).and_return('password')
+      session_params.should_receive(:except).with(:password).and_return(session_params)
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(false)

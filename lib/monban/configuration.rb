@@ -38,9 +38,9 @@ module Monban
 
     def setup_class_defaults
       @user_class = 'User'
-      @user_token_field = 'password'
-      @user_token_store_field = 'password_digest'
-      @user_lookup_field = 'email'
+      @user_token_field = :password
+      @user_token_store_field = :password_digest
+      @user_lookup_field = :email
     end
 
     def setup_services

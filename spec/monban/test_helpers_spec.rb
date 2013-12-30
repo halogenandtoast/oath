@@ -9,17 +9,18 @@ module Monban
       end
 
       it 'performs a sign in' do
-        user = double()
-        Dummy.new.sign_in user
-        expect(Warden.user).to eq(user)
+        user = double(id: 1)
+        dummy = Dummy.new
+        dummy.sign_in user
+        expect(dummy.warden.user).to eq(user)
       end
 
       it 'performs a sign out' do
-        user = double()
+        user = double(id: 1)
         dummy = Dummy.new
         dummy.sign_in user
         dummy.sign_out
-        expect(Warden.user).to be_nil
+        expect(dummy.warden.user).to eq(nil)
       end
     end
   end

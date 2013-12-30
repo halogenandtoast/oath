@@ -4,7 +4,7 @@ module Monban
       def warden
         @warden ||= begin
           manager = Warden::Manager.new(nil)
-          @request.env['warden'] = Warden::Proxy.new(@request.env, manager)
+          Warden::Proxy.new({'rack.session' => {}}, manager)
         end
       end
 
