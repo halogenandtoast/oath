@@ -14,7 +14,7 @@ Monban makes authentication simple:
 - Uses warden
 - Provides convenient controller helpers
 - Provides a rails generator for default controllers and views
-- TODO: Very customizable
+- Very customizable
 
 Monban doesn't do the following:
 
