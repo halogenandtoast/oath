@@ -96,8 +96,25 @@ A couple of convenience methods are available in your tests.
 ```ruby
 require 'monban/test/helpers'
 
+Monban.test_mode!
+
 RSpec.configure do |config|
   config.include Monban::Test::Helpers, type: :feature
+  config.after :each do
+    Monban.test_reset!
+  end
+end
+```
+
+```ruby
+feature "A feature spec" do
+  scenario "that requires login" do
+    user = create(:user)
+    sign_in(user)
+    # do something
+    sign_out
+    # do something else
+  end
 end
 ```
 

@@ -44,6 +44,10 @@ module Monban
     config.token_comparison = ->(digest, unencrypted_password) { digest == unencrypted_password }
   end
 
+  def self.test_reset!
+    Warden.test_reset!
+  end
+
   private
 
   def self.setup_config
