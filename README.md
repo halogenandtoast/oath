@@ -105,22 +105,24 @@ end
 
 You may perform a look up on a user using multiple fields by doing something like the following:
 
-    class SessionsController < ApplicationController
-      def create
-        user = authenticate_session(session_params, email_or_username: [:email, :username])
-        sign_in(user) do
-          redirect_to(root_path) and return
-        end
-        render :new
-      end
-
-      private
-
-      def session_params
-        params.require(:session).permit(:email_or_username, :password)
-      end
-
+```ruby
+class SessionsController < ApplicationController
+  def create
+    user = authenticate_session(session_params, email_or_username: [:email, :username])
+    sign_in(user) do
+      redirect_to(root_path) and return
     end
+    render :new
+  end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:email_or_username, :password)
+  end
+
+end
+```
 
 This will allow the user to enter either their username or email to login
 
