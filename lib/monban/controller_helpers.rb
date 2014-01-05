@@ -38,6 +38,10 @@ module Monban
       Monban.config.authentication_service.new(user, password).perform
     end
 
+    def reset_password user, password
+      Monban.config.password_reset_service.new(user, password).perform
+    end
+
     def warden
       env['warden']
     end

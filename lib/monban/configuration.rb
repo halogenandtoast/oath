@@ -4,7 +4,7 @@ module Monban
     attr_accessor :encryption_method, :token_comparison, :user_lookup_field
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
-    attr_accessor :authentication_service
+    attr_accessor :authentication_service, :password_reset_service
     attr_accessor :failure_app
 
     def initialize
@@ -48,6 +48,7 @@ module Monban
       @sign_in_service = Monban::SignIn
       @sign_up_service = Monban::SignUp
       @sign_out_service = Monban::SignOut
+      @password_reset_service = Monban::PasswordReset
     end
 
     def setup_requirements
