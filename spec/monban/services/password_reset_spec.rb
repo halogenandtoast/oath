@@ -11,7 +11,7 @@ describe Monban::PasswordReset do
     password_digest = Monban.encrypt_token('password')
     user = double()
     field = Monban.config.user_token_store_field
-    user.should_receive(:write_attribute).with(field, 'passwordsecret')
+    user.should_receive(:[]=).with(field, 'passwordsecret')
     password_reset = Monban::PasswordReset.new(user, 'password')
 
     password_reset.perform

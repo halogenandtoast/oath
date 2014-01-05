@@ -8,7 +8,7 @@ module Monban
     def perform
       field = Monban.config.user_token_store_field
       encrypted_password = Monban.encrypt_token(@password)
-      @user.write_attribute(field, encrypted_password)
+      @user[field] = encrypted_password
     end
   end
 end
