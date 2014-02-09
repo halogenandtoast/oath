@@ -1,6 +1,6 @@
 module Monban
   class Configuration
-    attr_accessor :user_class, :user_token_field, :user_token_store_field
+    attr_accessor :user_class, :user_token_field, :user_token_store_field, :user_creation_method
     attr_accessor :encryption_method, :token_comparison, :user_lookup_field
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
@@ -25,6 +25,10 @@ module Monban
       end
     end
 
+    def default_user_creation_method
+      ->(user_params) { Monban.user_class.create(user_params) }
+    end
+
     private
 
     def setup_token_encryption
@@ -37,6 +41,7 @@ module Monban
     end
 
     def setup_class_defaults
+      @user_creation_method = default_user_creation_method
       @user_class = 'User'
       @user_token_field = :password
       @user_token_store_field = :password_digest
