@@ -7,7 +7,7 @@ module Monban
     end
 
     def perform
-      Monban.user_class.create(@user_params.to_hash)
+      Monban.config.creation_method.call(@user_params.to_hash)
     end
 
     private

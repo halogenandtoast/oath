@@ -41,7 +41,9 @@ module Monban
   def self.test_mode!
     Warden.test_mode!
     config.encryption_method = ->(password) { password }
-    config.token_comparison = ->(digest, unencrypted_password) { digest == unencrypted_password }
+    config.token_comparison = ->(digest, unencrypted_password) do
+      digest == unencrypted_password
+    end
   end
 
   def self.test_reset!

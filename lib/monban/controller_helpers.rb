@@ -29,8 +29,9 @@ module Monban
     end
 
     def authenticate_session session_params, field_map = nil
-      password = session_params.fetch(Monban.config.user_token_field)
-      user = Monban.lookup(session_params.except(Monban.config.user_token_field), field_map)
+      token_field = Monban.config.user_token_field
+      password = session_params.fetch(token_field)
+      user = Monban.lookup(session_params.except(token_field), field_map)
       authenticate(user, password)
     end
 
