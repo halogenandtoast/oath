@@ -4,16 +4,16 @@
 [![Code Climate](https://codeclimate.com/github/halogenandtoast/monban.png)](https://codeclimate.com/github/halogenandtoast/monban)
 
 
-Monban is designed to be very simple and extensible user authentication. It's goal is to give all the power to the developer instead of
-forcing them to make Monban work with their system
+Monban is designed to be a very simple and extensible user authentication
+library for rails. Its goal is to give all the power to the developer instead
+of forcing them to make Monban work with their system.
 
 # Why use Monban?
 
 Monban makes authentication simple:
 
-- Uses warden
+- Easy to use in tests with dependency injection
 - Provides convenient controller helpers
-- Provides a rails generator for default controllers and views
 - Very customizable
 
 Monban doesn't do the following:
@@ -33,21 +33,29 @@ Then inside of your ApplicationController add the following:
 
     include Monban::ControllerHelpers
 
-You may also generate a scaffold to start with:
+And you're ready to start designing your authentication system.
+
+## Scaffold
+
+If you don't want to add all the components yourself, you may instead generate
+a scaffold to start with by running:
 
     rails g monban:scaffold
 
-This will generate a bare bones starting point. If you don't want the full stack you can just generate some controllers with:
+This will generate a bare bones starting point. If you don't want the full
+stack you can just generate some controllers with:
 
     rails g monban:controllers
 
 ## Usage
 
-Monban does currently have some out of the box expectations, but you can configure any of these:
+Monban does currently have some out of the box expectations, but you can
+configure and change any of these:
 
 - By default the model should be called `User`
+- Monban expects your user model to respond to create
 - You should have an `email` and `password_digest` column on your `User`
-- Passwords will be run through BCrypt
+- Passwords will be handled with BCrypt
 
 ### Controller Additions
 
@@ -56,8 +64,9 @@ Monban provides the following controller methods:
 - `sign_in(user)`
 - `sign_out`
 - `sign_up(user)`
-- `authenticate_session(session_params)`
 - `authenticate(user, password)`
+- `authenticate_session(session_params)`
+- `reset_password(user, password)`
 
 These helpers:
 
