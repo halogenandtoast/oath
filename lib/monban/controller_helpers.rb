@@ -58,7 +58,7 @@ module Monban
     def require_login
       unless signed_in?
         flash.notice = Monban.config.sign_in_notice
-        redirect_to controller: 'sessions', action: 'new'
+        redirect_to controller: '/sessions', action: 'new'
       end
     end
   end
