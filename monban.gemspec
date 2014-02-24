@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'rails'
-  gem.add_dependency 'bcrypt-ruby'
+  gem.add_dependency 'bcrypt'
   gem.add_dependency 'warden'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
