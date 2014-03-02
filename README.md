@@ -81,7 +81,7 @@ And this filter:
 
 ### Test mode
 
-Monban provides the follow:
+Monban provides the following:
 
 ```ruby
 Monban.test_mode!
