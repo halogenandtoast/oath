@@ -125,7 +125,7 @@ feature "A feature spec" do
 end
 ```
 
-## Controller Specs
+### Controller Specs
 
 If you are going to write controller tests, helpers are provided for those as well:
 
