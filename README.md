@@ -103,8 +103,6 @@ end
 A couple of convenience methods are available in your tests.
 
 ```ruby
-require 'monban/test/helpers'
-
 Monban.test_mode!
 
 RSpec.configure do |config|
@@ -123,6 +121,42 @@ feature "A feature spec" do
     # do something
     sign_out
     # do something else
+  end
+end
+```
+
+## Controller Specs
+
+If you are going to write controller tests, helpers are provided for those as well:
+
+```ruby
+Monban.test_mode!
+
+RSpec.configure do |config|
+  config.include Monban::Test::ControllerHelpers, type: :controller
+  config.after :each do
+    Monban.test_reset!
+  end
+end
+```
+
+```ruby
+require 'spec_helper'
+
+describe ProtectedController do
+
+  describe "GET 'index'" do
+    it "returns http success when signed in" do
+      user = create(:user)
+      sign_in(user)
+      get 'index'
+      response.should be_success
+    end
+
+    it "redirects when not signed in" do
+      get 'index'
+      response.should be_redirect
+    end
   end
 end
 ```

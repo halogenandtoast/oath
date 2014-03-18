@@ -7,13 +7,20 @@ module Monban
     end
     class Flash < Struct.new(:notice)
     end
+    class FakeRequest
+      attr_reader :env
+      def initialize(env)
+        @env = env
+      end
+    end
 
     class Dummy
-      attr_reader :redirected, :flash
+      attr_reader :redirected, :flash, :request
       def initialize warden
         @warden = warden
         @flash = Flash.new
         @redirected = false
+        @request = FakeRequest.new(env)
       end
       def redirect_to path
         @redirected = true

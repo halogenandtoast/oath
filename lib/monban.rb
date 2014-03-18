@@ -14,6 +14,7 @@ module Monban
 
   module Test
     autoload :Helpers, "monban/test/helpers"
+    autoload :ControllerHelpers, "monban/test/controller_helpers"
   end
 
   def self.initialize warden_config, &block

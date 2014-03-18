@@ -44,11 +44,11 @@ module Monban
     end
 
     def warden
-      env['warden']
+      request.env['warden']
     end
 
     def current_user
-      warden.user
+      @current_user ||= warden.user
     end
 
     def signed_in?
