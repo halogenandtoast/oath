@@ -6,50 +6,50 @@ class AdminAuthorize < Monban::Constraints::Authorize
   end
 end
 
-module Monban
-  module Constraints
-    describe Authorize do
-      describe "#matches?" do
-        context "when the request is unauthenticated" do
-          it "throws back to warden" do
-            warden = double(user: nil)
-            unauthenticated_request = double(env: { 'warden' => warden })
+describe Monban::Constraints::Authorize do
+  def create_request_for_user user
+    warden = double user: user
+    double env: { 'warden' => warden }
+  end
 
-            constraint = Authorize.new
+  describe "#matches?" do
+    context "when the request is not authenticated" do
+      it "throws back to warden" do
+        unauthorized_request = create_request_for_user nil
 
-            expect {
-              constraint.matches? unauthenticated_request
-            }.to throw_symbol :warden
-          end
-        end
+        constraint = Monban::Constraints::Authorize.new
 
-        context "when the request is authenticated" do
-          it "returns true" do
-            warden = double(user: Object.new)
-            authenticated_request = double(env: { 'warden' => warden })
-
-            constraint = Authorize.new
-
-            expect(constraint.matches?(authenticated_request)).to be_true
-          end
-        end
+        expect {
+          constraint.matches? unauthorized_request
+        }.to throw_symbol :warden
       end
     end
 
-    describe AdminAuthorize do
+    context "when the request is authenticated" do
+      it "returns true" do
+        authorized_request = create_request_for_user Object.new
+
+        constraint = Monban::Constraints::Authorize.new
+
+        expect(constraint.matches?(authorized_request)).to be_true
+      end
+    end
+  end
+
+  describe AdminAuthorize do
+    describe "#matches?" do
       describe "when the user is not an admin" do
         it "throws back to warden" do
-          warden = double(user: double(admin?: false))
-          unauthenticated_request = double(env: { 'warden' => warden })
+          user = double admin?: false
+          unauthorized_request = create_request_for_user user
 
           constraint = AdminAuthorize.new
 
           expect {
-            constraint.matches? unauthenticated_request
+            constraint.matches? unauthorized_request
           }.to throw_symbol :warden
         end
       end
     end
   end
 end
-
