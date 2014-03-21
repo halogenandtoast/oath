@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Route requires authentication' do
+feature 'Route requires authorization' do
   context 'when visiting while logged out' do
     it 'responds with HTTP 401' do
       visit authenticated_path

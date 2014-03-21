@@ -1,1 +1,1 @@
-require 'monban/constraints/authenticate'
+require 'monban/constraints/authorize'

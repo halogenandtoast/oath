@@ -8,7 +8,7 @@ RailsApp::Application.routes.draw do
   delete "sign_out" => "sessions#destroy"
   get "sign_up" => "users#new"
 
-  constraints Monban::Constraints::Authenticate.new do
+  constraints Monban::Constraints::Authorize.new do
     get "authenticated" => "users#new", as: :authenticated
   end
 end
