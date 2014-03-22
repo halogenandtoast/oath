@@ -14,14 +14,12 @@ describe Monban::Constraints::Authorize do
 
   describe "#matches?" do
     context "when the request is not authenticated" do
-      it "throws back to warden" do
+      it "returns false" do
         unauthorized_request = create_request_for_user nil
 
         constraint = Monban::Constraints::Authorize.new
 
-        expect {
-          constraint.matches? unauthorized_request
-        }.to throw_symbol :warden
+        expect(constraint.matches?(unauthorized_request)).to be_false
       end
     end
 
@@ -39,15 +37,13 @@ describe Monban::Constraints::Authorize do
   describe AdminAuthorize do
     describe "#matches?" do
       describe "when the user is not an admin" do
-        it "throws back to warden" do
+        it "returns false" do
           user = double admin?: false
           unauthorized_request = create_request_for_user user
 
           constraint = AdminAuthorize.new
 
-          expect {
-            constraint.matches? unauthorized_request
-          }.to throw_symbol :warden
+          expect(constraint.matches?(unauthorized_request)).to be_false
         end
       end
     end

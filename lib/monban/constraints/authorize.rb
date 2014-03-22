@@ -3,8 +3,7 @@ module Monban
     class Authorize
       def matches? request
         user = current_user request
-        unauthorized! unless user && authorize(user)
-        true
+        user && authorize(user)
       end
 
       protected
@@ -14,10 +13,6 @@ module Monban
 
       def current_user request
         request.env['warden'].user
-      end
-
-      def unauthorized!
-        throw(:warden)
       end
     end
   end

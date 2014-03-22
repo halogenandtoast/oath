@@ -2,8 +2,9 @@ require 'spec_helper'
 
 feature 'Route requires authorization' do
   scenario 'denies access when visiting while logged out' do
-    visit authenticated_path
-    expect(page.status_code).to eq 401
+    expect {
+      visit authenticated_path
+    }.to raise_error ActionController::RoutingError
   end
 
   scenario 'allows access when visiting while logged in' do
