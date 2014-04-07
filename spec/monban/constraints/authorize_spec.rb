@@ -1,15 +1,13 @@
 require 'spec_helper'
 
-class AdminAuthorize < Monban::Constraints::Authorize
-  def authorize user
-    user.admin?
-  end
-end
-
 describe Monban::Constraints::Authorize do
   def create_request_for_user user
     warden = double user: user
     double env: { 'warden' => warden }
+  end
+
+  def create_admin_authorizer
+    ->(user) { user.admin? }
   end
 
   describe "#matches?" do
@@ -32,17 +30,28 @@ describe Monban::Constraints::Authorize do
         expect(constraint.matches?(authorized_request)).to be_true
       end
     end
-  end
 
-  describe AdminAuthorize do
-    describe "#matches?" do
-      describe "when the user is not an admin" do
+    context "when a custom authorizer is given" do
+      context "and the request is not authenticated" do
         it "returns false" do
-          user = double admin?: false
-          unauthorized_request = create_request_for_user user
+          unauthorized_request = create_request_for_user nil
+          constraint = Monban::Constraints::Authorize.new(create_admin_authorizer)
+          expect(constraint.matches?(unauthorized_request)).to be_false
+        end
+      end
 
-          constraint = AdminAuthorize.new
+      context "and the request is authenticated and authorized" do
+        it "returns true" do
+          authorized_request = create_request_for_user double(admin?: true)
+          constraint = Monban::Constraints::Authorize.new(create_admin_authorizer)
+          expect(constraint.matches?(authorized_request)).to be_true
+        end
+      end
 
+      context "and the request is authenticated and unauthorized" do
+        it "returns false" do
+          unauthorized_request = create_request_for_user double(admin?: false)
+          constraint = Monban::Constraints::Authorize.new(create_admin_authorizer)
           expect(constraint.matches?(unauthorized_request)).to be_false
         end
       end
