@@ -1,0 +1,1 @@
+require 'monban/constraints/authorize'
