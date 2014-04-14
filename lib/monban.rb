@@ -41,10 +41,16 @@ module Monban
 
   def self.test_mode!
     Warden.test_mode!
+    self.config ||= Monban::Configuration.new
     config.encryption_method = ->(password) { password }
     config.token_comparison = ->(digest, unencrypted_password) do
       digest == unencrypted_password
     end
+  end
+
+  def self.configure(&block)
+    self.config = Monban::Configuration.new
+    yield self.config
   end
 
   def self.test_reset!
@@ -54,7 +60,7 @@ module Monban
   private
 
   def self.setup_config
-    self.config = Monban::Configuration.new
+    self.config ||= Monban::Configuration.new
     if block_given?
       yield config
     end
