@@ -1,11 +1,13 @@
 class SessionsController < ApplicationController
-  def new; end
+  respond_to :html
+
+  def new
+  end
 
   def create
-    user = User.where(email: params[:session][:email]).first
+    user = authenticate_session(session_params)
 
-    if authenticate(user, params[:session][:password])
-      sign_in user
+    if sign_in(user)
       redirect_to posts_path
     else
       redirect_to root_path, notice: "Invalid email or password"
@@ -16,4 +18,11 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_path
   end
+
+  private
+
+  def session_params
+    params[:session]
+  end
 end
+

@@ -2,8 +2,9 @@ require 'spec_helper'
 
 module Monban
   describe FieldMap do
-    it 'returns the params without a field map' do
+    it 'returns the params with symbolized keys without a field map' do
       params = double()
+      allow(params).to receive(:inject).and_return(params)
       field_map = FieldMap.new(params, nil)
       expect(field_map.to_fields).to eq(params)
     end

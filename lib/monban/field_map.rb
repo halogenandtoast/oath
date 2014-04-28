@@ -9,11 +9,15 @@ module Monban
       if @field_map
         params_from_field_map
       else
-        @params
+        params_with_symbolized_keys
       end
     end
 
     private
+
+    def params_with_symbolized_keys
+      @params.inject({}){|hash,(key,value)| hash.merge(key.to_sym => value) }
+    end
 
     def params_from_field_map
       [query_string, *([value] * lookup_keys.length)]
