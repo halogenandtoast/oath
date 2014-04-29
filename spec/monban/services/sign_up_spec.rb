@@ -22,7 +22,16 @@ describe Monban::SignUp, '#perform' do
     end
 
     user_params = { email: 'email@example.com', password: 'password' }
-    Monban.config.creation_method = user_create_double
-    Monban::SignUp.new(user_params).perform
+    swap_creation_method user_create_double do
+      Monban::SignUp.new(user_params).perform
+    end
+  end
+
+  def swap_creation_method(new_creation_method, &block)
+    old_creation_method = Monban.config.creation_method
+    Monban.config.creation_method = new_creation_method
+    yield
+  ensure
+    Monban.config.creation_method = old_creation_method
   end
 end
