@@ -34,4 +34,16 @@ describe Monban::SignUp, '#perform' do
   ensure
     Monban.config.creation_method = old_creation_method
   end
+
+  it 'does not create a user with an empty password' do
+    create = double
+    stub_const('User', create)
+    user_params = { email: 'email@example.com', password: '' }
+
+    create.should_receive(:create) do |args|
+      args[:password_digest].should be_nil
+    end
+
+    Monban::SignUp.new(user_params).perform
+  end
 end
