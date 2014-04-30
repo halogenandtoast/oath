@@ -50,7 +50,7 @@ module Monban
   end
 
   def self.configure(&block)
-    self.config = Monban::Configuration.new
+    self.config ||= Monban::Configuration.new
     yield self.config
   end
 
