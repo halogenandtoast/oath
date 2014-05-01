@@ -7,7 +7,7 @@ module Monban
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
     attr_accessor :authentication_service, :password_reset_service
     attr_accessor :failure_app
-    attr_accessor :creation_method
+    attr_accessor :creation_method, :find_method
 
     def initialize
       setup_class_defaults
@@ -23,6 +23,10 @@ module Monban
 
     def default_encryption_method
       ->(token) { BCrypt::Password.create(token) }
+    end
+
+    def default_find_method
+      ->(params) { Monban.user_class.find_by(params) }
     end
 
     def default_password_comparison
@@ -48,6 +52,7 @@ module Monban
       @user_token_store_field = :password_digest
       @user_lookup_field = :email
       @creation_method = default_creation_method
+      @find_method = default_find_method
     end
 
     def setup_services

@@ -1,0 +1,2 @@
+class InvalidSessionsController < SessionsController
+end
