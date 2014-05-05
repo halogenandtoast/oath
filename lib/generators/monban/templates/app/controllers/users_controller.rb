@@ -17,11 +17,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-<% if config[:use_strong_parameters] -%>
     params.require(:user).permit(:email, :password)
-<% else -%>
-    params[:user]
-<% end -%>
   end
 end
 

@@ -1,9 +1,8 @@
 require 'rails/generators/active_record'
-require 'generators/monban/controllers/controllers_generator'
 
 module Monban
   module Generators
-    class ScaffoldGenerator < ControllersGenerator
+    class ScaffoldGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
       source_root File.expand_path("../../templates", __FILE__)
 
@@ -15,6 +14,11 @@ module Monban
       def add_views
         copy_file 'app/views/users/new.html.erb'
         copy_file 'app/views/sessions/new.html.erb'
+      end
+
+      def add_controllers
+        template 'app/controllers/sessions_controller.rb', 'app/controllers/sessions_controller.rb'
+        template 'app/controllers/users_controller.rb', 'app/controllers/users_controller.rb'
       end
 
       def add_helper_module_to_application_controller
