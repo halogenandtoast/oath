@@ -37,24 +37,7 @@ And you're ready to start designing your authentication system.
 
 ## Generators
 
-### Scaffold
-
-If you don't want to add all the components yourself, you may instead generate
-a scaffold to start with by running:
-
-    rails g monban:scaffold
-
-This will generate a bare bones starting point.
-
-### Password Reset
-
-If you'd like to generate basic password reset for your app, you can run:
-
-    rails g monban:password_reset
-
-This will generate the necessary files for an implementation of resetting
-a user's password. It will ask you for host names for development, test
-and production environments in order to make the mailer work.
+If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators](https://github.com/halogenandtoast/monban-generators).
 
 ## Usage
 
