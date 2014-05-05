@@ -35,17 +35,26 @@ Then inside of your ApplicationController add the following:
 
 And you're ready to start designing your authentication system.
 
-## Scaffold
+## Generators
+
+### Scaffold
 
 If you don't want to add all the components yourself, you may instead generate
 a scaffold to start with by running:
 
     rails g monban:scaffold
 
-This will generate a bare bones starting point. If you don't want the full
-stack you can just generate some controllers with:
+This will generate a bare bones starting point.
 
-    rails g monban:controllers
+### Password Reset
+
+If you'd like to generate basic password reset for your app, you can run:
+
+    rails g monban:password_reset
+
+This will generate the necessary files for an implementation of resetting
+a user's password. It will ask you for host names for development, test
+and production environments in order to make the mailer work.
 
 ## Usage
 
