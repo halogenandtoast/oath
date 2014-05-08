@@ -117,6 +117,21 @@ feature "A feature spec" do
 end
 ```
 
+### Monban Backdoor
+
+Similar to clearance's backdoor you can visit a path and sign in quickly via
+
+```ruby
+user = create(:user)
+visit dashboard_path(as: user)
+```
+
+To enable this functionality you'll want to add the following to `config/environments/test.rb`:
+
+```ruby
+config.middleware.insert_after Warden::Manager, Monban::BackDoor
+```
+
 ### Controller Specs
 
 If you are going to write controller tests, helpers are provided for those as well:
