@@ -22,7 +22,13 @@ module Monban
     end
 
     def default_encryption_method
-      ->(token) { BCrypt::Password.create(token) }
+      ->(token) do
+        if token.present?
+          BCrypt::Password.create(token)
+        else
+          token
+        end
+      end
     end
 
     def default_find_method
