@@ -5,7 +5,7 @@ Warden::Manager.serialize_into_session do |user|
 end
 
 Warden::Manager.serialize_from_session do |id|
-  User.find_by_id(id)
+  Monban.user_class.find_by(id: id)
 end
 
 Warden::Strategies.add(:password_strategy, Monban::Strategies::PasswordStrategy)
