@@ -22,7 +22,6 @@ Monban doesn't do the following:
 - Doesn't force you to use engine based controllers or views
 - Doesn't require you to make changes to your user model
 
-
 ## Installation
 
 Monban was designed to work with Rails > 4.0. Add this line to your Gemfile:
@@ -41,11 +40,11 @@ If you'd like a good starting point for building an app using Monban, it is sugg
 
 ## Usage
 
-Monban does currently have some out of the box expectations, but you can
+Monban does currently have some out-of-the-box expectations, but you can
 configure and change any of these:
 
 - By default the model should be called `User`
-- Monban expects your user model to respond to create
+- Monban expects your user model to respond to `create`, `id`, and `find_by`
 - You should have an `email` and `password_digest` column on your `User`
 - Passwords will be handled with BCrypt
 
