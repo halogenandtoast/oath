@@ -1,4 +1,15 @@
+require 'monban/constraints/signed_in'
+require 'monban/constraints/signed_out'
+
 RailsApp::Application.routes.draw do
+  constraints Monban::Constraints::SignedIn.new do
+    resource :constrained_to_users, only: [:show]
+  end
+
+  constraints Monban::Constraints::SignedOut.new do
+    resource :constrained_to_visitors, only: [:show]
+  end
+
   resources :posts, only: [:index]
   resources :users, only: [:create]
   resource :failure, only: [:show]
