@@ -1,3 +1,8 @@
+== next
+* Do not hardcode User class
+* Add signed out routing constraint
+* Backfill NEWS.md
+
 == 0.0.14
 * Encryption of empty string is empty string.
 * Remove last trace of generators.
