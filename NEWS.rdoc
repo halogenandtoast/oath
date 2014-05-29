@@ -1,3 +1,46 @@
+== 0.0.14
+* Encryption of empty string is empty string.
+* Remove last trace of generators.
+
+== 0.0.13
+* Monban requires Rails 4+.
+* Move generators to the monban-generators gem.
+
+== 0.0.12
+* Ensure forms can't be tampered with by providing no username.
+* Prevent hashing of empty string passwords.
+* Memoize the configuration.
+
+== 0.0.11
+* Add `Monban::Backdoor` for easier tests.
+
+== 0.0.10
+* Add Monban::Test::ControllerHelpers for controller specs.
+* Depend on the bcrypt gem, not the bcrypt-ruby gem.
+
+== 0.0.9
+* Make user creation method configurable.
+* Redirect to SessionsController#new, ignoring namespace.
+* Add `Monban.config.creation_method`.
+
+== 0.0.8
+* Now configurable via `Monban.configure`:
+  * sign in service
+  * sign up service
+  * authentication service
+  * user_token_store_field
+  * user_token_field
+* Add PasswordReset service.
+* Rename controller_helpers to services.
+* Allos blocks to be passed into sign_in and sign_up.
+* Fix error on trying to respond with HTTP 401.
+* Monban does not generate a User model for you.
+* Add `Monban.test_mode!` and `Monban.test_reset!`.
+* Add a lot of tests.
+
+== 0.0.7
+* Check for Rails 4 or the strong_parameters gem, not just the strong_parameters gem
+
 == 0.0.6
 * [FIX] require_login should use controller and action for routing.
 
