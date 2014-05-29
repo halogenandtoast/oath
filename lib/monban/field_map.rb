@@ -16,7 +16,11 @@ module Monban
     private
 
     def params_with_symbolized_keys
-      @params.inject({}){|hash,(key,value)| hash.merge(key.to_sym => value) }
+      @params.inject(default_fields){|hash,(key,value)| hash.merge(key.to_sym => value) }
+    end
+
+    def default_fields
+      { Monban.config.user_lookup_field => nil }
     end
 
     def params_from_field_map

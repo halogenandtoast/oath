@@ -37,8 +37,7 @@ module Monban
 
   def self.lookup(params, field_map)
     fields = FieldMap.new(params, field_map).to_fields
-    default_fields = { Monban.config.user_lookup_field => nil }
-    self.config.find_method.call(default_fields.merge(fields))
+    self.config.find_method.call(fields)
   end
 
   def self.test_mode!

@@ -13,15 +13,18 @@ RSpec.configure do |config|
 end
 
 def with_monban_config(hash, &block)
-  old_config = {}
-  hash.each do |key, value|
-    old_config[key] = Monban.config.send(key)
-    Monban.config.send(:"#{key}=", value)
-  end
+  begin
+    old_config = {}
+    hash.each do |key, value|
+      old_config[key] = Monban.config.send(key)
+      Monban.config.send(:"#{key}=", value)
+    end
 
-  yield
+    yield
+  ensure
 
-  old_config.each do |key, value|
-    Monban.config.send(:"#{key}=", old_config[key])
+    old_config.each do |key, value|
+      Monban.config.send(:"#{key}=", old_config[key])
+    end
   end
 end
