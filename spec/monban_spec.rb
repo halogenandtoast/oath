@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'warden'
 
 describe 'Monban' do
   it "stores the warden config" do

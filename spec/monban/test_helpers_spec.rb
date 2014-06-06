@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'warden'
 require 'monban/test/helpers'
 
 module Warden::Spec

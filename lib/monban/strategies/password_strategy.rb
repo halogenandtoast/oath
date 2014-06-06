@@ -1,3 +1,5 @@
+require 'warden'
+
 module Monban
   module Strategies
     class PasswordStrategy < ::Warden::Strategies::Base

@@ -1,3 +1,4 @@
+require 'warden'
 require "monban/version"
 require "monban/configuration"
 require "monban/services"

@@ -1,3 +1,5 @@
+require 'warden'
+
 module Monban
   module Test
     module ControllerHelpers

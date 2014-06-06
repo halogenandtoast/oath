@@ -1,3 +1,4 @@
+require 'warden'
 require "monban/strategies/password_strategy"
 
 Warden::Manager.serialize_into_session do |user|
