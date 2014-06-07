@@ -16,7 +16,7 @@ module Monban
     end
 
     class Dummy
-      attr_reader :redirected, :flash, :request
+      attr_reader :redirected, :redirected_to, :flash, :request
       def initialize warden
         @warden = warden
         @flash = Flash.new
@@ -25,6 +25,7 @@ module Monban
       end
       def redirect_to path
         @redirected = true
+        @redirected_to = path
       end
       def env
         { "warden" => @warden }
@@ -139,6 +140,7 @@ module Monban
       @warden.should_receive(:user).and_return(false)
       @dummy.require_login
       expect(@dummy.redirected).to eq(true)
+      expect(@dummy.redirected_to).to eq(Monban.config.require_login_redirect)
       expect(@dummy.flash.notice).to eq(Monban.config.sign_in_notice)
     end
 
