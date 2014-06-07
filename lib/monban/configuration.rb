@@ -1,6 +1,5 @@
 module Monban
   class Configuration
-
     attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :encryption_method, :token_comparison, :user_lookup_field
     attr_accessor :sign_in_notice
@@ -8,6 +7,7 @@ module Monban
     attr_accessor :authentication_service, :password_reset_service
     attr_accessor :failure_app
     attr_accessor :creation_method, :find_method
+    attr_accessor :no_login_handler, :no_login_redirect
 
     attr_writer :user_class
 
@@ -43,6 +43,13 @@ module Monban
       end
     end
 
+    def default_no_login_handler
+      ->(controller) do
+        controller.flash.notice = Monban.config.sign_in_notice
+        controller.redirect_to Monban.config.no_login_redirect
+      end
+    end
+
     def user_class
       @user_class.constantize
     end
@@ -65,6 +72,8 @@ module Monban
       @user_lookup_field = :email
       @creation_method = default_creation_method
       @find_method = default_find_method
+      @no_login_redirect = { controller: '/session', action: 'new' }
+      @no_login_handler = default_no_login_handler
     end
 
     def setup_services
@@ -79,5 +88,4 @@ module Monban
       @failure_app = lambda{|e|[401, {"Content-Type" => "text/plain"}, ["Authorization Failed"]] }
     end
   end
-
 end

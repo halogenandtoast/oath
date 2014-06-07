@@ -1,3 +1,11 @@
+== HEAD
+* A configuration for `no_login_redirect` was added. This accepts anything that
+  can be passed to `redirect_to` and is used when `require_login` is called with
+  no logged in user.
+* A configuration for `no_login_handler` was added. This allows developers to
+  completely customize the response when `require_login` is called with no
+  logged in user.
+
 == 0.0.15
 * Delegate user_class correctly so that config returns class
 * Fixed issue authenticate session not allowing for multiple fields
