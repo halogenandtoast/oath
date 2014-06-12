@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    monban (0.0.14)
+    monban (0.0.15)
       bcrypt
       rails
       warden

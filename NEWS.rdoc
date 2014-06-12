@@ -1,4 +1,6 @@
-== next
+== 0.0.15
+* Delegate user_class correctly so that config returns class
+* Fixed issue authenticate session not allowing for multiple fields
 * Do not hardcode User class
 * Add signed out routing constraint
 * Backfill NEWS.md
