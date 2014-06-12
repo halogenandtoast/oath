@@ -1,13 +1,15 @@
 module Monban
   class Configuration
 
-    attr_accessor :user_class, :user_token_field, :user_token_store_field
+    attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :encryption_method, :token_comparison, :user_lookup_field
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
     attr_accessor :authentication_service, :password_reset_service
     attr_accessor :failure_app
     attr_accessor :creation_method, :find_method
+
+    attr_writer :user_class
 
     def initialize
       setup_class_defaults
@@ -39,6 +41,10 @@ module Monban
       ->(digest, unencrypted_token) do
         BCrypt::Password.new(digest) == unencrypted_token
       end
+    end
+
+    def user_class
+      @user_class.constantize
     end
 
     private

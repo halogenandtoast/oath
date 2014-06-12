@@ -33,7 +33,7 @@ module Monban
   end
 
   def self.user_class
-    config.user_class.constantize
+    config.user_class
   end
 
   def self.lookup(params, field_map)
