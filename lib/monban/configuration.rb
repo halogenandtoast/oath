@@ -37,7 +37,7 @@ module Monban
       ->(params) { Monban.user_class.find_by(params) }
     end
 
-    def default_password_comparison
+    def default_token_comparison
       ->(digest, undigested_token) do
         BCrypt::Password.new(digest) == undigested_token
       end
@@ -58,7 +58,7 @@ module Monban
 
     def setup_token_hashing
       @hashing_method = default_hashing_method
-      @token_comparison = default_password_comparison
+      @token_comparison = default_token_comparison
     end
 
     def setup_notices

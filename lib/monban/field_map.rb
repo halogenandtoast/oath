@@ -1,10 +1,16 @@
 module Monban
   class FieldMap
+    # @param params [Hash] hash of parameters
+    # @param field_map [Hash] hash of values to map
     def initialize params, field_map
       @params = params
       @field_map = field_map
     end
 
+    # converts params into values that can be passed into a where clause
+    #
+    # @return [Array] if initialized with field_map
+    # @return [Hash] if not initialized with field_map
     def to_fields
       if @field_map
         params_from_field_map
