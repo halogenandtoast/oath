@@ -1,3 +1,4 @@
+
 # Monban 門番
 
 [![Build Status](https://travis-ci.org/halogenandtoast/monban.png?branch=master)](https://travis-ci.org/halogenandtoast/monban)
@@ -36,7 +37,7 @@ And you're ready to start designing your authentication system.
 
 ## Generators
 
-If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators](https://github.com/halogenandtoast/monban-generators).
+If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators]
 
 ## Usage
 
@@ -169,6 +170,26 @@ end
 
 ## Advanced Functionality
 
+### Authentication with username instead of email
+
+If you want to sign in with username instead of email just change the configuration option
+
+```ruby
+# config/initializers/monban.rb
+Monban.configure do |config|
+  config.user_lookup_field = :username
+end
+```
+
+If you used the monban:scaffold generator from [monban generators] you'll have to change the following four references to email.
+
+* In SessionsController#session_params
+* In UsersController#user_params
+* The email form field on sessions#new
+* The email form field on users#new
+
+### Using multiple lookup fields
+
 You may perform a look up on a user using multiple fields by doing something like the following:
 
 ```ruby
@@ -194,7 +215,43 @@ end
 
 This will allow the user to enter either their username or email to login
 
-### Limitations
+## Configuration
+
+Monban::Configuration has lots of options for changing how monban works. Currently the options you can change are as follows:
+
+### User values
+
+* **user_lookup_field**: (default `:email`) Field in the database to lookup a user by.
+* **user_token_field**: (default `:password`) Field the form submits containing the undigested password.
+* **user_token_store_field**: (default: `:password_digest`) Field in the database that stores the user's digested password.
+* **user_class**: (default: `User`) The user class.
+
+### Services
+
+* **sign_in_notice**: (default: `You must be signed in`) Rails flash message to set when user signs in.
+* **sign_in_service**: (default: `Monban::SignIn`) Service for signing a user in.
+* **sign_up_service**: (default: `Monban::SignUp`) Service for signing a user up.
+* **sign_out_service**: (default: `Monban::SignOut`) Service for signing a user out.
+* **authentication_service**: (default: `Monban::Authentication`) Service for authenticated a user.
+* **password_reset_service**: (default: `Monban::PasswordReset`) Service for resetting a user's password.
+
+### Rails values
+
+* **no_login_handler**: A before_action for rails that handles when a user is not signed in.
+* **no_login_redirect**: Used by the no_login_handler to redirect the user
+
+### Methods
+
+* **hashing_method**: Method to hash an undigested password.
+* **token_comparison**: Method to compare a digested and undigested password.
+* **creation_method**: Method for creating a user.
+* **find_method**: Method for finding a user.
+
+### Warden Settings
+
+* **failure_app**: Necessary for warden to work. A rack app that handles failures in authentication.
+
+## Limitations
 
 Here are a few of the current limitations of monban:
 
@@ -207,3 +264,5 @@ Here are a few of the current limitations of monban:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[monban generators]: https://github.com/halogenandtoast/monban-generators

@@ -1,4 +1,6 @@
 module Monban
+  # Configuration options for Monban
+  # @since 0.0.15
   class Configuration
     attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :hashing_method, :token_comparison, :user_lookup_field
@@ -19,10 +21,16 @@ module Monban
       setup_requirements
     end
 
+    # Default creation method. Can be overriden via {Monban.configure}
+    #
+    # @see #creation_method=
     def default_creation_method
       ->(params) { Monban.user_class.create(params) }
     end
 
+    # Default hashing method. Can be overriden via {Monban.configure}
+    #
+    # @see #hashing_method=
     def default_hashing_method
       ->(token) do
         if token.present?
@@ -33,16 +41,28 @@ module Monban
       end
     end
 
+    # Default find method. Can be overriden via {Monban.configure}
+    #
+    # @see #find_method=
+    # @see Monban.user_class
     def default_find_method
       ->(params) { Monban.user_class.find_by(params) }
     end
 
-    def default_password_comparison
+    # Default token comparison method. Can be overriden via {Monban.configure}
+    #
+    # @see #token_comparison=
+    def default_token_comparison
       ->(digest, undigested_token) do
         BCrypt::Password.new(digest) == undigested_token
       end
     end
 
+    # Default handler when user is not logged in. Can be overriden via {Monban.configure}
+    #
+    # @see #no_login_handler=
+    # @see #sign_in_notice
+    # @see #no_login_redirect
     def default_no_login_handler
       ->(controller) do
         controller.flash.notice = Monban.config.sign_in_notice
@@ -50,6 +70,9 @@ module Monban
       end
     end
 
+    # User class. Can be overriden via {Monban.configure}
+    #
+    # @see #user_class=
     def user_class
       @user_class.constantize
     end
@@ -58,7 +81,7 @@ module Monban
 
     def setup_token_hashing
       @hashing_method = default_hashing_method
-      @token_comparison = default_password_comparison
+      @token_comparison = default_token_comparison
     end
 
     def setup_notices
