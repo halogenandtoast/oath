@@ -8,7 +8,7 @@ describe 'Monban' do
 
   it "provides a .test_mode!" do
     Monban.test_mode!
-    expect(Monban.encrypt_token('password')).to eql('password')
+    expect(Monban.hash_token('password')).to eql('password')
     expect(Monban.compare_token('password', 'password')).to be_true
   end
 

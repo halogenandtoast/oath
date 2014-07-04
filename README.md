@@ -78,7 +78,7 @@ Monban provides the following:
 Monban.test_mode!
 ```
 
-Which will change password encryption to provide plaintext responses instead of using BCrypt. This will allow you to write factories using the password_digest field:
+Which will change password hashing method to provide plaintext responses instead of using BCrypt. This will allow you to write factories using the password_digest field:
 
 ```ruby
 FactoryGirl.define do

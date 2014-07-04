@@ -28,8 +28,8 @@ module Monban
     config.token_comparison.call(digest, token)
   end
 
-  def self.encrypt_token(token)
-    config.encryption_method.call(token)
+  def self.hash_token(token)
+    config.hashing_method.call(token)
   end
 
   def self.user_class
@@ -44,9 +44,9 @@ module Monban
   def self.test_mode!
     Warden.test_mode!
     self.config ||= Monban::Configuration.new
-    config.encryption_method = ->(password) { password }
-    config.token_comparison = ->(digest, unencrypted_password) do
-      digest == unencrypted_password
+    config.hashing_method = ->(password) { password }
+    config.token_comparison = ->(digest, undigested_password) do
+      digest == undigested_password
     end
   end
 

@@ -4,11 +4,11 @@ require 'ostruct'
 
 describe Monban::PasswordReset do
   before do
-    Monban.config.encryption_method = ->(password) { password + "secret" }
+    Monban.config.hashing_method = ->(password) { password + "secret" }
   end
 
-  it 'updates the password with the encryption strategy' do
-    password_digest = Monban.encrypt_token('password')
+  it 'updates the password with the hashing strategy' do
+    password_digest = Monban.hash_token('password')
     user = double()
     field = Monban.config.user_token_store_field
     user.should_receive(:[]=).with(field, 'passwordsecret')
@@ -18,6 +18,6 @@ describe Monban::PasswordReset do
   end
 
   after do
-    Monban.config.encryption_method = Monban.config.default_encryption_method
+    Monban.config.hashing_method = Monban.config.default_hashing_method
   end
 end

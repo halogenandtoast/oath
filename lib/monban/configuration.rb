@@ -1,7 +1,7 @@
 module Monban
   class Configuration
     attr_accessor :user_token_field, :user_token_store_field
-    attr_accessor :encryption_method, :token_comparison, :user_lookup_field
+    attr_accessor :hashing_method, :token_comparison, :user_lookup_field
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
     attr_accessor :authentication_service, :password_reset_service
@@ -13,7 +13,7 @@ module Monban
 
     def initialize
       setup_class_defaults
-      setup_token_encryption
+      setup_token_hashing
       setup_notices
       setup_services
       setup_requirements
@@ -23,7 +23,7 @@ module Monban
       ->(params) { Monban.user_class.create(params) }
     end
 
-    def default_encryption_method
+    def default_hashing_method
       ->(token) do
         if token.present?
           BCrypt::Password.create(token)
@@ -38,8 +38,8 @@ module Monban
     end
 
     def default_password_comparison
-      ->(digest, unencrypted_token) do
-        BCrypt::Password.new(digest) == unencrypted_token
+      ->(digest, undigested_token) do
+        BCrypt::Password.new(digest) == undigested_token
       end
     end
 
@@ -56,8 +56,8 @@ module Monban
 
     private
 
-    def setup_token_encryption
-      @encryption_method = default_encryption_method
+    def setup_token_hashing
+      @hashing_method = default_hashing_method
       @token_comparison = default_password_comparison
     end
 

@@ -1,8 +1,8 @@
 module Monban
   class Authentication
-    def initialize user, unencrypted_token
+    def initialize user, undigested_token
       @user = user
-      @unencrypted_token = unencrypted_token
+      @undigested_token = undigested_token
     end
 
     def perform
@@ -16,7 +16,7 @@ module Monban
     private
 
     def authenticated?
-      @user && Monban.compare_token(@user.send(token_store_field), @unencrypted_token)
+      @user && Monban.compare_token(@user.send(token_store_field), @undigested_token)
     end
 
     def token_store_field

@@ -1,4 +1,7 @@
 == HEAD
+* Renamed encryption to hashing
+* Renamed encrypted to digested
+* Renamed unencrypted to undigested
 * A configuration for `no_login_redirect` was added. This accepts anything that
   can be passed to `redirect_to` and is used when `require_login` is called with
   no logged in user.

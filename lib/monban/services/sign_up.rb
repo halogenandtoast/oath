@@ -1,10 +1,10 @@
 module Monban
   class SignUp
     def initialize user_params
-      encrypted_token = token_digest(user_params)
+      digested_token = token_digest(user_params)
       @user_params = user_params.
         except(token_field).
-        merge(token_store_field.to_sym => encrypted_token)
+        merge(token_store_field.to_sym => digested_token)
     end
 
     def perform
@@ -14,9 +14,9 @@ module Monban
     private
 
     def token_digest(user_params)
-      unencrypted_token = user_params[token_field]
-      unless unencrypted_token.empty?
-        Monban.encrypt_token(unencrypted_token)
+      undigested_token = user_params[token_field]
+      unless undigested_token.empty?
+        Monban.hash_token(undigested_token)
       end
     end
 

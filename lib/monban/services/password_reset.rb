@@ -7,8 +7,8 @@ module Monban
 
     def perform
       field = Monban.config.user_token_store_field
-      encrypted_password = Monban.encrypt_token(@password)
-      @user[field] = encrypted_password
+      digested_password = Monban.hash_token(@password)
+      @user[field] = digested_password
     end
   end
 end
