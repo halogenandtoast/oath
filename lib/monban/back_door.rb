@@ -1,6 +1,7 @@
 module Monban
-  # Middleware used in tests to allow users to be signed during a request.
-  # The user should be provided by using the key :as in a hash passed to the path.
+  # Middleware used in tests to allow users to be signed in directly, without
+  # having to load and submit the sign in form. The user should be provided by
+  # using the key :as in a hash passed to the path.
   #
   # @note This should only be used for testing purposes
   # @since 0.0.15

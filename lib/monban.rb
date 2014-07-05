@@ -10,8 +10,9 @@ require "monban/field_map"
 require "monban/strategies/password_strategy"
 require "active_support/core_ext/module/attribute_accessors"
 
-# Monban is an authentication toolkit designed to allow developers create their own
-# authentication solutions. If you're interested in a default implementation try {http://github.com/halogenandtoast/monban-generators Monban Generators}
+# Monban is an authentication toolkit designed to allow developers to create their own
+# authentication solutions. If you're interested in a default implementation try
+# {http://github.com/halogenandtoast/monban-generators Monban Generators}
 # @since 0.0.14
 module Monban
   mattr_accessor :warden_config

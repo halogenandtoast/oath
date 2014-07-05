@@ -49,7 +49,7 @@ module Monban
 
     # Authenticates a session.
     #
-    # @note Uses the {Monban::Authentication} service to verify the users details
+    # @note Uses the {Monban::Authentication} service to verify the user's details
     #
     # @param session_params [Hash] params containing lookup and token fields
     # @param field_map [Hash] Field map used for allowing users to sign in with multiple fields e.g. email and username
@@ -103,7 +103,7 @@ module Monban
 
     # Authenticates a user given a password
     #
-    # @note Uses the {Monban::Authentication} service to verify the users credentials
+    # @note Uses the {Monban::Authentication} service to verify the user's credentials
     #
     # @param user [User] the user
     # @param password [String] the password
@@ -113,9 +113,9 @@ module Monban
       Monban.config.authentication_service.new(user, password).perform
     end
 
-    # Resets a users password
+    # Resets a user's password
     #
-    # @note Uses the {Monban::PasswordReset} service to change a users password
+    # @note Uses the {Monban::PasswordReset} service to change a user's password
     #
     # @param user [User] the user
     # @param password [String] the password
