@@ -1,4 +1,5 @@
 == HEAD
+* Fix PasswordStrategy to use configuration options
 * Renamed encryption to hashing
 * Renamed encrypted to digested
 * Renamed unencrypted to undigested
