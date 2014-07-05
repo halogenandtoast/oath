@@ -1,3 +1,4 @@
+
 # Monban 門番
 
 [![Build Status](https://travis-ci.org/halogenandtoast/monban.png?branch=master)](https://travis-ci.org/halogenandtoast/monban)
@@ -36,7 +37,7 @@ And you're ready to start designing your authentication system.
 
 ## Generators
 
-If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators](#generators).
+If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators]
 
 ## Usage
 
@@ -180,7 +181,7 @@ Monban.configure do |config|
 end
 ```
 
-If you used the monban:scaffold generator from [monban generators](#generators) you'll have to change the following four references to email.
+If you used the monban:scaffold generator from [monban generators] you'll have to change the following four references to email.
 
 * In SessionsController#session_params
 * In UsersController#user_params
@@ -228,4 +229,4 @@ Here are a few of the current limitations of monban:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-[generators]: https://github.com/halogenandtoast/monban-generators
+[monban generators]: https://github.com/halogenandtoast/monban-generators
