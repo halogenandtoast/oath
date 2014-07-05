@@ -9,7 +9,7 @@ Monban is designed to be a very simple and extensible user authentication
 library for rails. Its goal is to give all the power to the developer instead
 of forcing them to make Monban work with their system.
 
-# Why use Monban?
+## Why use Monban?
 
 Monban makes authentication simple:
 
@@ -22,6 +22,10 @@ Monban doesn't do the following:
 - Doesn't automatically add routes to your application
 - Doesn't force you to use engine based controllers or views
 - Doesn't require you to make changes to your user model
+
+## Documentation
+
+You can read the full documentation at [rubydoc](http://rubydoc.info/github/halogenandtoast/monban)
 
 ## Installation
 

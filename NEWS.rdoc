@@ -1,3 +1,7 @@
+== HEAD
+* Link to Rubydoc in documentation
+* Fix header in documentation
+
 == 0.1.0
 * Fix PasswordStrategy to use configuration options
 * Documentation
