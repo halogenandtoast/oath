@@ -1,5 +1,6 @@
 module Monban
   # Sign in service. Signs the user in via warden
+  # @since 0.0.15
   class SignIn
     # Initialize service
     #

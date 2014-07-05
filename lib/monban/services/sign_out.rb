@@ -1,5 +1,6 @@
 module Monban
   # Sign out service. Signs the user out via warden
+  # @since 0.0.15
   class SignOut
     # Initialize service
     #

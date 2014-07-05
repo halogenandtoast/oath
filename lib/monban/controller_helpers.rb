@@ -2,6 +2,8 @@ require 'bcrypt'
 require 'active_support/concern'
 
 module Monban
+  # Mixin to be included in Rails controllers.
+  # @since 0.0.15
   module ControllerHelpers
     extend ActiveSupport::Concern
     included do

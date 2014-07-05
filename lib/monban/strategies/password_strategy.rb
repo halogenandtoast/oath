@@ -3,6 +3,7 @@ require 'warden'
 module Monban
   module Strategies
     # Password strategy for warden
+    # @since 0.0.15
     class PasswordStrategy < ::Warden::Strategies::Base
 
       # Checks if strategy should be executed

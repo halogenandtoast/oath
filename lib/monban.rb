@@ -13,7 +13,7 @@ require "active_support/core_ext/module/attribute_accessors"
 # Monban is an authentication toolkit designed to allow developers to create their own
 # authentication solutions. If you're interested in a default implementation try
 # {http://github.com/halogenandtoast/monban-generators Monban Generators}
-# @since 0.0.14
+# @since 0.0.15
 module Monban
   mattr_accessor :warden_config
   mattr_accessor :config

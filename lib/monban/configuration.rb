@@ -1,4 +1,6 @@
 module Monban
+  # Configuration options for Monban
+  # @since 0.0.15
   class Configuration
     attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :hashing_method, :token_comparison, :user_lookup_field

@@ -1,5 +1,6 @@
 module Monban
   # Authentication service. Checks to see if the credentials provided are valid
+  # @since 0.0.15
   class Authentication
     # Initialize service
     #

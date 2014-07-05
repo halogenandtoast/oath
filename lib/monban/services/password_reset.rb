@@ -1,5 +1,6 @@
 module Monban
   # Password reset service. Updates the password on a User
+  # @since 0.0.15
   class PasswordReset
     # Initialize service
     #

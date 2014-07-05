@@ -1,4 +1,8 @@
 module Monban
+  # FieldMap is used to allow multiple lookup fields. For instance if you
+  # wanted to allow a user to sign in via email or username. This is used
+  # internally by the authenticate_session controller helper
+  # @since 0.0.15
   class FieldMap
     # @param params [Hash] hash of parameters
     # @param field_map [Hash] hash of values to map

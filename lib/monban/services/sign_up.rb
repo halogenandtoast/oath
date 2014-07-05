@@ -1,5 +1,6 @@
 module Monban
   # Sign up service. Signs the user up
+  # @since 0.0.15
   class SignUp
     # Initialize service
     #
