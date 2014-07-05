@@ -2,7 +2,9 @@ require 'warden'
 
 module Monban
   module Strategies
+    # Strategy for Warden
     class PasswordStrategy < ::Warden::Strategies::Base
+
       def valid?
         params[:email] || params[:password]
       end
