@@ -1,12 +1,12 @@
 require 'spec_helper'
 require 'monban/services/sign_up'
 
-describe Monban::SignUp, '#perform' do
+describe Monban::Services::SignUp, '#perform' do
   it 'creates a user with the right parameters' do
     allow(User).to receive(:create)
     user_params = { email: 'email@example.com', password: 'password' }
 
-    Monban::SignUp.new(user_params).perform
+    Monban::Services::SignUp.new(user_params).perform
     expect(User).to have_received(:create) do |args|
       expect(args[:email]).to eq(user_params[:email])
       expect(Monban.compare_token(args[:password_digest], 'password')).to be_true
@@ -19,7 +19,7 @@ describe Monban::SignUp, '#perform' do
     user_params = { email: 'email@example.com', password: 'password' }
 
     with_monban_config(creation_method: user_create_double) do
-      Monban::SignUp.new(user_params).perform
+      Monban::Services::SignUp.new(user_params).perform
     end
 
     expect(user_create_double).to have_received(:call) do |args|
@@ -31,7 +31,7 @@ describe Monban::SignUp, '#perform' do
     allow(User).to receive(:create)
     user_params = { email: 'email@example.com', password: '' }
 
-    Monban::SignUp.new(user_params).perform
+    Monban::Services::SignUp.new(user_params).perform
     expect(User).to have_received(:create) do |args|
       expect(args[:password_digest]).to be_nil
     end

@@ -60,7 +60,7 @@ module Monban
     it 'performs a sign out' do
       sign_out = double()
       sign_out.should_receive(:perform)
-      SignOut.should_receive(:new).with(@warden).and_return(sign_out)
+      Services::SignOut.should_receive(:new).with(@warden).and_return(sign_out)
       @dummy.sign_out
     end
 
@@ -89,7 +89,7 @@ module Monban
       authentication = double()
       authentication.should_receive(:perform).and_return(user)
       Monban.should_receive(:lookup).with({email: 'a@b.com'}, nil).and_return(user)
-      Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
+      Services::Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params).should == user
     end
 
@@ -100,7 +100,7 @@ module Monban
       authentication = double()
       authentication.should_receive(:perform).and_return(user)
       Monban.should_receive(:lookup).with(session_params.except(:password), field_map).and_return(user)
-      Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
+      Services::Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params, field_map).should == user
     end
 
@@ -112,7 +112,7 @@ module Monban
       authentication = double()
       authentication.should_receive(:perform).and_return(false)
       Monban.should_receive(:lookup).with(session_params, nil).and_return(user)
-      Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
+      Services::Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params).should == false
     end
 
@@ -121,7 +121,7 @@ module Monban
       password = double()
       authentication = double()
       authentication.should_receive(:perform)
-      Authentication.should_receive(:new).with(user, password).and_return(authentication)
+      Services::Authentication.should_receive(:new).with(user, password).and_return(authentication)
       @dummy.authenticate user, password
     end
 
@@ -158,7 +158,7 @@ module Monban
       user = double()
       sign_in = double()
       sign_in.should_receive(:perform).and_return(success)
-      SignIn.should_receive(:new).with(user, @warden).and_return(sign_in)
+      Services::SignIn.should_receive(:new).with(user, @warden).and_return(sign_in)
       user
     end
 
@@ -166,7 +166,7 @@ module Monban
       user_params = double()
       sign_up = double()
       sign_up.should_receive(:perform).and_return(success)
-      SignUp.should_receive(:new).with(user_params).and_return(sign_up)
+      Services::SignUp.should_receive(:new).with(user_params).and_return(sign_up)
       user_params
     end
   end

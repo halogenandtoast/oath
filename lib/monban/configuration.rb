@@ -100,11 +100,11 @@ module Monban
     end
 
     def setup_services
-      @authentication_service = Monban::Authentication
-      @sign_in_service = Monban::SignIn
-      @sign_up_service = Monban::SignUp
-      @sign_out_service = Monban::SignOut
-      @password_reset_service = Monban::PasswordReset
+      @authentication_service = Monban::Services::Authentication
+      @sign_in_service = Monban::Services::SignIn
+      @sign_up_service = Monban::Services::SignUp
+      @sign_out_service = Monban::Services::SignOut
+      @password_reset_service = Monban::Services::PasswordReset
     end
 
     def setup_requirements

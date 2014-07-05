@@ -12,11 +12,11 @@ module Monban
 
     # Sign in a user
     #
-    # @note Uses the {Monban::SignIn} service to create a session
+    # @note Uses the {Monban::Services::SignIn} service to create a session
     #
     # @param user [User] the user object to sign in
     # @yield Yields to the block if the user is successfully signed in
-    # @return [Object] returns the value from calling perform on the {Monban::SignIn} service
+    # @return [Object] returns the value from calling perform on the {Monban::Services::SignIn} service
     def sign_in user
       Monban.config.sign_in_service.new(user, warden).perform.tap do |status|
         if status && block_given?
@@ -27,20 +27,20 @@ module Monban
 
     # Sign out the current session
     #
-    # @note Uses the {Monban::SignOut} service to destroy the session
+    # @note Uses the {Monban::Services::SignOut} service to destroy the session
     #
-    # @return [Object] returns the value from calling perform on the {Monban::SignOut} service
+    # @return [Object] returns the value from calling perform on the {Monban::Services::SignOut} service
     def sign_out
       Monban.config.sign_out_service.new(warden).perform
     end
 
     # Sign up a user
     #
-    # @note Uses the {Monban::SignUp} service to create a user
+    # @note Uses the {Monban::Services::SignUp} service to create a user
     #
     # @param user_params [Hash] params containing lookup and token fields
     # @yield Yields to the block if the user is signed up successfully
-    # @return [Object] returns the value from calling perform on the {Monban::SignUp} service
+    # @return [Object] returns the value from calling perform on the {Monban::Services::SignUp} service
     def sign_up user_params
       Monban.config.sign_up_service.new(user_params).perform.tap do |status|
         if status && block_given?
@@ -51,7 +51,7 @@ module Monban
 
     # Authenticates a session.
     #
-    # @note Uses the {Monban::Authentication} service to verify the user's details
+    # @note Uses the {Monban::Services::Authentication} service to verify the user's details
     #
     # @param session_params [Hash] params containing lookup and token fields
     # @param field_map [Hash] Field map used for allowing users to sign in with multiple fields e.g. email and username
@@ -105,7 +105,7 @@ module Monban
 
     # Authenticates a user given a password
     #
-    # @note Uses the {Monban::Authentication} service to verify the user's credentials
+    # @note Uses the {Monban::Services::Authentication} service to verify the user's credentials
     #
     # @param user [User] the user
     # @param password [String] the password
@@ -117,7 +117,7 @@ module Monban
 
     # Resets a user's password
     #
-    # @note Uses the {Monban::PasswordReset} service to change a user's password
+    # @note Uses the {Monban::Services::PasswordReset} service to change a user's password
     #
     # @param user [User] the user
     # @param password [String] the password

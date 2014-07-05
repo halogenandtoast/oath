@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'monban/services/password_reset'
 require 'ostruct'
 
-describe Monban::PasswordReset do
+describe Monban::Services::PasswordReset do
   before do
     Monban.config.hashing_method = ->(password) { password + "secret" }
   end
@@ -12,7 +12,7 @@ describe Monban::PasswordReset do
     user = double()
     field = Monban.config.user_token_store_field
     user.should_receive(:[]=).with(field, 'passwordsecret')
-    password_reset = Monban::PasswordReset.new(user, 'password')
+    password_reset = Monban::Services::PasswordReset.new(user, 'password')
 
     password_reset.perform
   end

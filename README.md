@@ -229,11 +229,11 @@ Monban::Configuration has lots of options for changing how monban works. Current
 ### Services
 
 * **sign_in_notice**: (default: `You must be signed in`) Rails flash message to set when user signs in.
-* **sign_in_service**: (default: `Monban::SignIn`) Service for signing a user in.
-* **sign_up_service**: (default: `Monban::SignUp`) Service for signing a user up.
-* **sign_out_service**: (default: `Monban::SignOut`) Service for signing a user out.
-* **authentication_service**: (default: `Monban::Authentication`) Service for authenticated a user.
-* **password_reset_service**: (default: `Monban::PasswordReset`) Service for resetting a user's password.
+* **sign_in_service**: (default: `Monban::Services::SignIn`) Service for signing a user in.
+* **sign_up_service**: (default: `Monban::Services::SignUp`) Service for signing a user up.
+* **sign_out_service**: (default: `Monban::Services::SignOut`) Service for signing a user out.
+* **authentication_service**: (default: `Monban::Services::Authentication`) Service for authenticated a user.
+* **password_reset_service**: (default: `Monban::Services::PasswordReset`) Service for resetting a user's password.
 
 ### Rails values
 
