@@ -221,35 +221,35 @@ Monban::Configuration has lots of options for changing how monban works. Current
 
 ### User values
 
-* user_lookup_field: (default ':email') Field in the database to lookup a user by.
-* user_token_field: (default ':password') Field the form submits containing the undigested password.
-* user_token_store_field:: (default: ':password_digest') Field in the database that stores the user's digested password.
-* user_class: (default: 'User') The user class.
+* *user_lookup_field*: (default `:email`) Field in the database to lookup a user by.
+* *user_token_field*: (default `:password`) Field the form submits containing the undigested password.
+* *user_token_store_field*: (default: `:password_digest`) Field in the database that stores the user's digested password.
+* *user_class*: (default: `User`) The user class.
 
 ### Services
 
-* sign_in_notice: (default: 'You must be signed in') Rails flash message to set when user signs in.
-* sign_in_service: (default: 'Monban::SignIn') Service for signing a user in.
-* sign_up_service: (default: 'Monban::SignUp') Service for signing a user up.
-* sign_out_service: (default: 'Monban::SignOut') Service for signing a user out.
-* authentication_service: (default: 'Monban::Authentication') Service for authenticated a user.
-* password_reset_service: (default: 'Monban::PasswordReset') Service for resetting a user's password.
+* *sign_in_notice*: (default: `You must be signed in`) Rails flash message to set when user signs in.
+* *sign_in_service*: (default: `Monban::SignIn`) Service for signing a user in.
+* *sign_up_service*: (default: `Monban::SignUp`) Service for signing a user up.
+* *sign_out_service*: (default: `Monban::SignOut`) Service for signing a user out.
+* *authentication_service*: (default: `Monban::Authentication`) Service for authenticated a user.
+* *password_reset_service*: (default: `Monban::PasswordReset`) Service for resetting a user's password.
 
 ### Rails values
 
-* no_login_handler: A before_action for rails that handles when a user is not signed in.
-* no_login_redirect: Used by the no_login_handler to redirect the user
+* *no_login_handler*: A before_action for rails that handles when a user is not signed in.
+* *no_login_redirect*: Used by the no_login_handler to redirect the user
 
 ### Methods
 
-* hashing_method: Method to hash an undigested password.
-* token_comparison: Method to compare a digested and undigested password.
-* creation_method: Method for creating a user.
-* find_method: Method for finding a user.
+* *hashing_method*: Method to hash an undigested password.
+* *token_comparison*: Method to compare a digested and undigested password.
+* *creation_method*: Method for creating a user.
+* *find_method*: Method for finding a user.
 
 ### Warden Settings
 
-* failure_app: Necessary for warden to work. A rack app that handles failures in authentication.
+* *failure_app*: Necessary for warden to work. A rack app that handles failures in authentication.
 
 ## Limitations
 
