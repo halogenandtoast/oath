@@ -36,7 +36,7 @@ And you're ready to start designing your authentication system.
 
 ## Generators
 
-If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators](https://github.com/halogenandtoast/monban-generators).
+If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators](#generators).
 
 ## Usage
 
@@ -169,6 +169,26 @@ end
 
 ## Advanced Functionality
 
+### Authentication with username instead of email
+
+If you want to sign in with username instead of email just change the configuration option
+
+```ruby
+# config/initializers/monban.rb
+Monban.configure do |config|
+  config.user_lookup_field = :username
+end
+```
+
+If you used the monban:scaffold generator from [monban generators](#generators) you'll have to change the following four references to email.
+
+* In SessionsController#session_params
+* In UsersController#user_params
+* The email form field on sessions#new
+* The email form field on users#new
+
+### Using multiple lookup fields
+
 You may perform a look up on a user using multiple fields by doing something like the following:
 
 ```ruby
@@ -207,3 +227,5 @@ Here are a few of the current limitations of monban:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[generators]: https://github.com/halogenandtoast/monban-generators

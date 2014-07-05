@@ -1,4 +1,5 @@
 == HEAD
+* Documentation
 * Renamed encryption to hashing
 * Renamed encrypted to digested
 * Renamed unencrypted to undigested
