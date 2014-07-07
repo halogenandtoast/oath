@@ -59,7 +59,7 @@ Monban provides the following controller methods:
 
 - `sign_in(user)`
 - `sign_out`
-- `sign_up(user)`
+- `sign_up(user_params)`
 - `authenticate(user, password)`
 - `authenticate_session(session_params)`
 - `reset_password(user, password)`
