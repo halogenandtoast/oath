@@ -1,4 +1,4 @@
-== HEAD
+== 0.1.1
 * Link to Rubydoc in documentation
 * Fix header in documentation
 * Fix no_login_redirect to default to a properly named controller
