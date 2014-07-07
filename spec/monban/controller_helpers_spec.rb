@@ -141,6 +141,7 @@ module Monban
       @dummy.require_login
       expect(@dummy.redirected).to eq(true)
       expect(@dummy.redirected_to).to eq(Monban.config.no_login_redirect)
+      expect(@dummy.redirected_to).to eq(controller: '/sessions', action: 'new')
       expect(@dummy.flash.notice).to eq(Monban.config.sign_in_notice)
     end
 
