@@ -95,7 +95,7 @@ module Monban
       @user_lookup_field = :email
       @creation_method = default_creation_method
       @find_method = default_find_method
-      @no_login_redirect = { controller: '/session', action: 'new' }
+      @no_login_redirect = { controller: '/sessions', action: 'new' }
       @no_login_handler = default_no_login_handler
     end
 
