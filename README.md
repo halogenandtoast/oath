@@ -73,6 +73,25 @@ And this filter:
 
 - `require_login`
 
+### Routing Constraints
+
+To authorize users in `config/routes.rb`:
+
+```ruby
+require "monban/constraints/signed_in"
+require "monban/constraints/signed_out"
+
+Blog::Application.routes.draw do
+  constraints Monban::Constraints::SignedIn.new do
+    root "dashboards#show", as: :dashboard
+  end
+
+  constraints Monban::Constraints::SignedOut.new do
+    root "landings#show"
+  end
+end
+```
+
 ## Usage in Tests
 
 ### Test mode
