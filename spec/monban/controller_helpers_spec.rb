@@ -4,7 +4,7 @@ require 'warden'
 module Monban
   describe ControllerHelpers do
     class WardenMock
-      def user; end
+      def authenticate; end
     end
     class Flash < Struct.new(:notice)
     end
@@ -126,18 +126,18 @@ module Monban
     end
 
     it 'returns the current user' do
-      @warden.should_receive(:user)
+      @warden.should_receive(:authenticate)
       @dummy.current_user
     end
 
     it 'returns signed_in?' do
-      @warden.should_receive(:user)
+      @warden.should_receive(:authenticate)
       @dummy.should_not_receive(:current_user)
       @dummy.signed_in?
     end
 
     it 'redirects when not signed_in' do
-      @warden.should_receive(:user).and_return(false)
+      @warden.should_receive(:authenticate).and_return(false)
       @dummy.require_login
       expect(@dummy.redirected).to eq(true)
       expect(@dummy.redirected_to).to eq(Monban.config.no_login_redirect)
@@ -145,7 +145,7 @@ module Monban
     end
 
     it 'does not redirect when signed_in' do
-      @warden.should_receive(:user).and_return(true)
+      @warden.should_receive(:authenticate).and_return(true)
       @dummy.require_login
       expect(@dummy.redirected).to eq(false)
     end

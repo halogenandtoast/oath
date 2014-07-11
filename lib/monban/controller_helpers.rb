@@ -21,7 +21,7 @@ module Monban
       Monban.config.sign_in_service.new(user, warden).perform.tap do |status|
         if status
           if Monban.config.extensions.include?(:remember_me)
-            cookies["remember_me"] = user.id
+            cookies.permanent["remember_me"] = user.id
           end
 
           yield if block_given?
@@ -139,7 +139,7 @@ module Monban
     # @return [User] if user is signed in
     # @return [nil] if user is not signed in
     def current_user
-      @current_user ||= warden.user
+      @current_user ||= warden.authenticate
     end
 
     # helper_method that checks if there is a user signed in
@@ -147,7 +147,7 @@ module Monban
     # @return [User] if user is signed in
     # @return [nil] if user is not signed in
     def signed_in?
-      warden.user
+      current_user
     end
 
     # before_action that determines what to do when the user is not signed in

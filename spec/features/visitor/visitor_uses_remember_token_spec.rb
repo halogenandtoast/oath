@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Visitor signs in' do
-  scenario 'with remember token' do
+  scenario 'sets remember token' do
     with_monban_config(extensions: [:remember_me]) do
 
       Monban::Services::SignUp.new(email: "email@example.com", password: "password").perform
@@ -13,11 +13,18 @@ feature 'Visitor signs in' do
       click_on 'go'
 
       expect(remember_me_cookie).to be_present
+      expect(remember_me_cookie.expires).to be_present
+    end
+  end
 
-      using_session("remember_me_session") do
-        visit posts_path
-        expect(page.current_path).to eq(posts_path)
-      end
+  scenario 'visits page with remember token set' do
+    with_monban_config(extensions: [:remember_me]) do
+      user = Monban::Services::SignUp.new(email: "email@example.com", password: "password").perform
+      cookie_jar["remember_me"] = user.id
+
+      visit posts_path
+
+      expect(page.current_path).to eq(posts_path)
     end
   end
 

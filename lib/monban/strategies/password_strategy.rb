@@ -9,7 +9,6 @@ module Monban
       # Checks if strategy should be executed
       # @return [Boolean]
       def valid?
-        binding.pry
         lookup_field_value && token_field_value
       end
 

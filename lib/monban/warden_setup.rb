@@ -1,8 +1,16 @@
 require 'warden'
 require "monban/strategies/password_strategy"
+require "monban/strategies/remember_me_strategy"
 
 module Monban
   # Sets up warden specifics for working with monban
+
+  EXTENSIONS = {
+    strategies: {
+      remember_me: Strategies::RememberMeStrategy
+    }
+  }
+
   class WardenSetup
     def initialize(warden_config)
       @warden_config = warden_config
@@ -14,7 +22,7 @@ module Monban
     # * Failure app
     def call
       setup_warden_manager
-      setup_warden_strategies
+      setup_warden_extensions
       setup_warden_config
     end
 
@@ -31,15 +39,19 @@ module Monban
       end
     end
 
-    def setup_warden_strategies
-      Monban.config.authentication_strategies.each do |strategy|
-        Warden::Strategies.add(strategy.class.name.to_sym, strategy)
+    def setup_warden_extensions
+      Monban.config.extensions.each do |extension|
+        if strategy = EXTENSIONS[:strategies][extension.to_sym]
+          Warden::Strategies.add(extension.to_sym, strategy)
+        end
       end
     end
 
     def setup_warden_config
       warden_config.tap do |config|
         config.failure_app = Monban.config.failure_app
+        strategies = EXTENSIONS[:strategies].keys & Monban.config.extensions
+        config.scope_defaults(config.default_scope, strategies: strategies)
       end
     end
   end
