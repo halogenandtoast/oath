@@ -39,6 +39,20 @@ Then inside of your ApplicationController add the following:
 
 And you're ready to start designing your authentication system.
 
+## Generators
+
+If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators]
+
+## Usage
+
+Monban does currently have some out-of-the-box expectations, but you can
+configure and change any of these:
+
+- By default the model should be called `User`
+- Monban expects your user model to respond to `create`, `id`, and `find_by`
+- You should have an `email` and `password_digest` column on your `User`
+- Passwords will be handled with BCrypt
+
 ### Suggestions
 
 Monban doesn't add validations to your user model unless you're using [monban generators] so it's suggested to add the following validations:
@@ -59,20 +73,6 @@ en:
 ```
 
 Which will generate the error message `Password can't be blank` instead of `Password digest can't be blank`.
-
-## Generators
-
-If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators]
-
-## Usage
-
-Monban does currently have some out-of-the-box expectations, but you can
-configure and change any of these:
-
-- By default the model should be called `User`
-- Monban expects your user model to respond to `create`, `id`, and `find_by`
-- You should have an `email` and `password_digest` column on your `User`
-- Passwords will be handled with BCrypt
 
 ### Controller Additions
 
