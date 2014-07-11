@@ -1,5 +1,6 @@
 <%= form_for :session do |f| %>
   <%= f.text_field :email %>
   <%= f.text_field :password %>
+  <%= check_box_tag :remember_me %>
   <%= f.submit 'go' %>
 <% end %>

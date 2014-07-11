@@ -9,7 +9,7 @@ module Monban
       # Checks if strategy should be executed
       # @return [Boolean]
       def valid?
-        lookup_field_value || token_field_value
+        lookup_field_value && token_field_value
       end
 
 

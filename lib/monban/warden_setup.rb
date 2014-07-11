@@ -32,7 +32,9 @@ module Monban
     end
 
     def setup_warden_strategies
-      Warden::Strategies.add(:password_strategy, Monban.config.authentication_strategy)
+      Monban.config.authentication_strategies.each do |strategy|
+        Warden::Strategies.add(strategy.class.name.to_sym, strategy)
+      end
     end
 
     def setup_warden_config
