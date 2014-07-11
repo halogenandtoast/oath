@@ -23,6 +23,10 @@ module Monban
     autoload :ControllerHelpers, "monban/test/controller_helpers"
   end
 
+  module Strategies
+    autoload :RememberMeStrategy, "monban/strategies/remember_me_strategy"
+  end
+
   # initialize Monban. Sets up warden and the default configuration.
   #
   # @note This is used in {Monban::Railtie} in order to bootstrap Monban

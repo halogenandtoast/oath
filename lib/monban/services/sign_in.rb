@@ -6,7 +6,7 @@ module Monban
       # Initialize service
       #
       # @param user [User] A user object
-      # @param warden [Warden] warden
+      # @param request [ActionDispatch::Request] A request object
       def initialize user, warden
         @user = user
         @warden = warden

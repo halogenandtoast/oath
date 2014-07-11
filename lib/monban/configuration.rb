@@ -11,15 +11,18 @@ module Monban
     attr_accessor :creation_method, :find_method
     attr_accessor :no_login_handler, :no_login_redirect
     attr_accessor :authentication_strategies
+    attr_accessor :extensions
 
     attr_writer :user_class
 
-    def initialize
+    def initialize(configurations = {})
       setup_class_defaults
       setup_token_hashing
       setup_notices
       setup_services
       setup_warden_requirements
+      setup_extensions
+      set_configurations(configurations)
     end
 
     # Default creation method. Can be overriden via {Monban.configure}
@@ -112,5 +115,16 @@ module Monban
       @failure_app = lambda{|e|[401, {"Content-Type" => "text/plain"}, ["Authorization Failed"]] }
       @authentication_strategies = [Monban::Strategies::PasswordStrategy]
     end
+
+    def setup_extensions
+      @extensions = []
+    end
+
+    def set_configurations(configurations)
+      configurations.each do |key, value|
+        public_send("#{key}=", value)
+      end
+    end
+
   end
 end

@@ -19,8 +19,12 @@ module Monban
     # @return [Object] returns the value from calling perform on the {Monban::Services::SignIn} service
     def sign_in user
       Monban.config.sign_in_service.new(user, warden).perform.tap do |status|
-        if status && block_given?
-          yield
+        if status
+          if Monban.config.extensions.include?(:remember_me)
+            cookies["remember_me"] = user.id
+          end
+
+          yield if block_given?
         end
       end
     end

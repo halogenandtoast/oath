@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
+require 'pry'
 require 'rails_app/config/environment'
 require 'rspec/rails'
 require 'warden'
@@ -13,19 +14,15 @@ RSpec.configure do |config|
   config.order = "random"
 end
 
-def with_monban_config(hash, &block)
-  begin
-    old_config = {}
-    hash.each do |key, value|
-      old_config[key] = Monban.config.send(key)
-      Monban.config.send(:"#{key}=", value)
-    end
-
-    yield
-  ensure
-
-    old_config.each do |key, value|
-      Monban.config.send(:"#{key}=", old_config[key])
+def with_monban_config(hash = {}, &block)
+  old_config = Monban.config
+  Monban.config = Monban::Configuration.new(hash)
+  Monban.config.extensions.each do |extension|
+    if extension == :remember_me
+      Warden::Strategies.add(extension, Monban::Strategies::RememberMeStrategy)
     end
   end
+  yield
+ensure
+  Monban.config = old_config
 end
