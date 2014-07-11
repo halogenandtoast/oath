@@ -15,7 +15,7 @@ module Monban
 
       # Authenticates for warden
       def authenticate!
-        user = Monban.user_class.find_by(lookup_field => lookup_field_value)
+        user = Monban.config.user_class.find_by(lookup_field => lookup_field_value)
         auth = Monban.config.authentication_service.new(user, token_field_value)
         auth.authenticated? ? success!(user) : fail!("Could not log in")
       end

@@ -33,7 +33,7 @@ module Monban
       user_id = params['as']
 
       if user_id.present?
-        user = Monban.user_class.find(user_id)
+        user = Monban.config.user_class.find(user_id)
         env["warden"].set_user(user)
       end
     end

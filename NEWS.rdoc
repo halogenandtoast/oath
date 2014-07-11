@@ -1,6 +1,7 @@
 == HEAD
 * Document validation suggestions
 * Document locale suggestions
+* Deprecate usage of Monban.user_class in favor of Monban.config.user_class
 
 == 0.1.1
 * Link to Rubydoc in documentation

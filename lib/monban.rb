@@ -56,8 +56,11 @@ module Monban
   # the user class
   #
   # @see Monban::Configuration#setup_class_defaults
+  # @deprecated Use Monban.config.user_class instead
   # @return [Class] the User class
   def self.user_class
+    warn "#{Kernel.caller.first}: [DEPRECATION] " +
+      'Accessing the user class through the Monban module is deprecated. Use Monban.config.user_class instead.'
     config.user_class
   end
 

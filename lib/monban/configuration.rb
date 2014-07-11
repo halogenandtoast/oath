@@ -25,7 +25,7 @@ module Monban
     #
     # @see #creation_method=
     def default_creation_method
-      ->(params) { Monban.user_class.create(params) }
+      ->(params) { Monban.config.user_class.create(params) }
     end
 
     # Default hashing method. Can be overriden via {Monban.configure}
@@ -44,9 +44,9 @@ module Monban
     # Default find method. Can be overriden via {Monban.configure}
     #
     # @see #find_method=
-    # @see Monban.user_class
+    # @see Monban.config.user_class
     def default_find_method
-      ->(params) { Monban.user_class.find_by(params) }
+      ->(params) { Monban.config.user_class.find_by(params) }
     end
 
     # Default token comparison method. Can be overriden via {Monban.configure}
