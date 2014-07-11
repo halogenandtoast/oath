@@ -2,6 +2,8 @@
 * Document validation suggestions
 * Document locale suggestions
 * Deprecate usage of Monban.user_class in favor of Monban.config.user_class
+* Make warden strategy configurable via Monban.config.authentication_strategy
+* Extract warden setup into the WardenSetup class
 
 == 0.1.1
 * Link to Rubydoc in documentation

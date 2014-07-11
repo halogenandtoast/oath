@@ -113,7 +113,6 @@ module Monban
   end
 
   def self.setup_warden_config(warden_config)
-    warden_config.failure_app = self.config.failure_app
-    self.warden_config = warden_config
+    self.warden_config = WardenSetup.new(warden_config).call
   end
 end

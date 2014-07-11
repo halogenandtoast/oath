@@ -10,6 +10,7 @@ module Monban
     attr_accessor :failure_app
     attr_accessor :creation_method, :find_method
     attr_accessor :no_login_handler, :no_login_redirect
+    attr_accessor :authentication_strategy
 
     attr_writer :user_class
 
@@ -18,7 +19,7 @@ module Monban
       setup_token_hashing
       setup_notices
       setup_services
-      setup_requirements
+      setup_warden_requirements
     end
 
     # Default creation method. Can be overriden via {Monban.configure}
@@ -107,8 +108,9 @@ module Monban
       @password_reset_service = Monban::Services::PasswordReset
     end
 
-    def setup_requirements
+    def setup_warden_requirements
       @failure_app = lambda{|e|[401, {"Content-Type" => "text/plain"}, ["Authorization Failed"]] }
+      @authentication_strategy = Monban::Strategies::PasswordStrategy
     end
   end
 end
