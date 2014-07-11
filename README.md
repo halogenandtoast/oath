@@ -39,6 +39,27 @@ Then inside of your ApplicationController add the following:
 
 And you're ready to start designing your authentication system.
 
+### Suggestions
+
+Monban doesn't add validations to your user model unless you're using [monban generators] so it's suggested to add the following validations:
+
+```ruby
+validates :email, presence: true, uniqueness: true
+validates :password_digest, presence: true
+```
+
+In addition to that you'll want to add the following to your `config/locale/en.yml`:
+
+```yaml
+en:
+  activerecord:
+    attributes:
+      user:
+        password_digest: "Password"
+```
+
+Which will generate the error message `Password can't be blank` instead of `Password digest can't be blank`.
+
 ## Generators
 
 If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators]
