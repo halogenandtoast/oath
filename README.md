@@ -55,6 +55,8 @@ configure and change any of these:
 
 ### Suggestions
 
+#### Validations
+
 Monban doesn't add validations to your user model unless you're using [monban generators] so it's suggested to add the following validations:
 
 ```ruby
@@ -73,6 +75,19 @@ en:
 ```
 
 Which will generate the error message `Password can't be blank` instead of `Password digest can't be blank`.
+
+#### Layout changes
+
+It is suggested you add something like this to your application layout:
+
+```erb
+<% if signed_in? %>
+  <%= link_to "Sign out", session_path, method: :delete %>
+<% else %>
+  <%= link_to "Sign in", new_session_path %>
+  <%= link_to "Sign up", new_user_path %>
+<% end %>
+```
 
 ### Controller Additions
 
