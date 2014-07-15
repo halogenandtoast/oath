@@ -1,5 +1,5 @@
 module Monban
-  # Mixin to be included in Rails controllers.
+  # Mixin to be included into Rails console.
   # @since 0.0.15
   module ConsoleHelpers
     # Sign up a user
@@ -7,7 +7,6 @@ module Monban
     # @note Uses the {Monban::Services::SignUp} service to create a user
     #
     # @param user_params [Hash] params containing lookup and token fields
-    # @yield Yields to the block if the user is signed up successfully
     # @return [Object] returns the value from calling perform on the {Monban::Services::SignUp} service
     def sign_up user_params
       Monban.config.sign_up_service.new(user_params).perform
