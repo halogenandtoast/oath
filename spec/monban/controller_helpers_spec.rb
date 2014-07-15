@@ -130,6 +130,16 @@ module Monban
       @dummy.current_user
     end
 
+    it 'signs in with remember me if extension is enabled' do
+      with_config extensions: :remember_me do
+        user = double()
+        cookies = double()
+        allow(cookies).to receive_message_chain(:permanent, :[]=).with("remember_me")
+        @dummy.sign_in(user, remember_me: true)
+        expect(cookies).to have_received_message_chain(:permanent, :[]=).with("remember_me")
+      end
+    end
+
     it 'returns signed_in?' do
       allow(@warden).to receive(:authenticate).and_return(true)
       expect(@dummy.signed_in?).to be_true

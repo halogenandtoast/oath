@@ -17,10 +17,10 @@ module Monban
     # @param user [User] the user object to sign in
     # @yield Yields to the block if the user is successfully signed in
     # @return [Object] returns the value from calling perform on the {Monban::Services::SignIn} service
-    def sign_in user
+    def sign_in user, options = {}
       Monban.config.sign_in_service.new(user, warden).perform.tap do |status|
         if status
-          if Monban.config.extensions.include?(:remember_me)
+          if options[:remember_me] && Monban.config.extensions.include?(:remember_me)
             cookies.permanent["remember_me"] = user.id
           end
 
