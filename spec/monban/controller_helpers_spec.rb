@@ -131,9 +131,8 @@ module Monban
     end
 
     it 'returns signed_in?' do
-      @warden.should_receive(:authenticate)
-      @dummy.should_not_receive(:current_user)
-      @dummy.signed_in?
+      allow(@warden).to receive(:authenticate).and_return(true)
+      expect(@dummy.signed_in?).to be_true
     end
 
     it 'redirects when not signed_in' do
