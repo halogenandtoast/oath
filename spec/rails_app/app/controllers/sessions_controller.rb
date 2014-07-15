@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     user = authenticate_session(session_params)
 
-    if sign_in(user)
+    if sign_in(user, remember_me: params[:remember_me])
       redirect_to posts_path
     else
       redirect_to root_path, notice: "Invalid email or password"

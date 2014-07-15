@@ -16,10 +16,11 @@ module Monban
     end
 
     class Dummy
-      attr_reader :redirected, :redirected_to, :flash, :request
+      attr_reader :redirected, :redirected_to, :flash, :request, :cookies
       def initialize warden
         @warden = warden
         @flash = Flash.new
+        @cookies = {}
         @redirected = false
         @request = FakeRequest.new(env)
       end
@@ -131,18 +132,18 @@ module Monban
     end
 
     it 'signs in with remember me if extension is enabled' do
-      with_config extensions: :remember_me do
-        user = double()
-        cookies = double()
-        allow(cookies).to receive_message_chain(:permanent, :[]=).with("remember_me")
+      with_monban_config extensions: [:remember_me] do
+        user = double(id: 1)
+        allow(Services::SignIn).to receive_message_chain(:new, :perform).and_return(true)
+        allow(@dummy.cookies).to receive_message_chain(:permanent, :[]=).with("remember_me", 1)
         @dummy.sign_in(user, remember_me: true)
-        expect(cookies).to have_received_message_chain(:permanent, :[]=).with("remember_me")
+        expect(@dummy.cookies).to receive_message_chain(:permanent, :[]=).with("remember_me", 1)
       end
     end
 
     it 'returns signed_in?' do
       allow(@warden).to receive(:authenticate).and_return(true)
-      expect(@dummy.signed_in?).to be_true
+      expect(@dummy.signed_in?).to be(true)
     end
 
     it 'redirects when not signed_in' do
