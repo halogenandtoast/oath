@@ -89,6 +89,28 @@ It is suggested you add something like this to your application layout:
 <% end %>
 ```
 
+#### Guest user
+
+If you want to introduce a Guest object when a user is not signed in, you can override Monban's `current_user` method in your `ApplicationController`:
+
+```ruby
+def current_user
+  super || Guest.new
+end
+```
+
+In `app/models/`, define a `Guest` class:
+
+```ruby
+class Guest
+  def name
+    "Guest"
+  end
+end
+```
+
+This article on the [Null Object Pattern](http://robots.thoughtbot.com/handling-associations-on-null-objects) provides a good explanation of why you might want to do this.
+
 ### Controller Additions
 
 Monban provides the following controller methods:
