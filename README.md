@@ -116,8 +116,7 @@ end
 ```
 
 Freely call these methods on `current_user` without using `signed_in?` or
-`current_user.nil?`
-conditionals.
+`current_user.nil?` conditionals.
 
 ### Controller Additions
 
