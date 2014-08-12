@@ -89,6 +89,36 @@ It is suggested you add something like this to your application layout:
 <% end %>
 ```
 
+#### Guest user
+
+If you find that you're frequently using conditionals to check that a user is
+signed in before calling methods on `current_user`, you may consider
+implementing the [Null Object Pattern](http://robots.thoughtbot.com/handling-associations-on-null-objects).
+
+In `ApplicationController`, override Monban's `current_user` method to return a
+new instance of `Guest` if there is no `current_user`:
+
+```ruby
+def current_user
+  super || Guest.new
+end
+```
+
+In `app/models/`, define the `Guest` class with appropriate methods from your
+`User` class:
+
+```ruby
+class Guest
+  def name
+    "Guest"
+  end
+end
+```
+
+Freely call these methods on `current_user` without using `signed_in?` or
+`current_user.nil?`
+conditionals.
+
 ### Controller Additions
 
 Monban provides the following controller methods:
