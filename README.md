@@ -91,12 +91,7 @@ It is suggested you add something like this to your application layout:
 
 #### Guest user
 
-If you find that you're frequently using conditionals to check that a user is
-signed in before calling methods on `current_user`, you may consider
-implementing the [Null Object Pattern](http://robots.thoughtbot.com/handling-associations-on-null-objects).
-
-In `ApplicationController`, override Monban's `current_user` method to return a
-new instance of `Guest` if there is no `current_user`:
+If you want to introduce a Guest object when a user is not signed in, you can override Monban's `current_user` method in your `ApplicationController`:
 
 ```ruby
 def current_user
@@ -104,8 +99,7 @@ def current_user
 end
 ```
 
-In `app/models/`, define the `Guest` class with appropriate methods from your
-`User` class:
+In `app/models/`, define a `Guest` class:
 
 ```ruby
 class Guest
@@ -115,8 +109,7 @@ class Guest
 end
 ```
 
-Freely call these methods on `current_user` without using `signed_in?` or
-`current_user.nil?` conditionals.
+This article on the [Null Object Pattern](http://robots.thoughtbot.com/handling-associations-on-null-objects) provides a good explanation of why you might want to do this.
 
 ### Controller Additions
 
