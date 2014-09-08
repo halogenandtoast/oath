@@ -1,4 +1,5 @@
 == HEAD
+* Monban::BackDoor can be configured with a block
 * Document validation suggestions
 * Document locale suggestions
 * Deprecate usage of Monban.user_class in favor of Monban.config.user_class

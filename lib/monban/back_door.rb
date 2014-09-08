@@ -16,8 +16,12 @@ module Monban
   class BackDoor
     # Create the a new BackDoor middleware for test purposes
     # @return [BackDoor]
-    def initialize(app)
+    def initialize(app, &block)
       @app = app
+
+      if block
+        @sign_in_block = block
+      end
     end
 
     # Execute the BackDoor middleware signing in the user specified with :as
@@ -33,8 +37,16 @@ module Monban
       user_id = params['as']
 
       if user_id.present?
-        user = Monban.config.user_class.find(user_id)
+        user = find_user(user_id)
         env["warden"].set_user(user)
+      end
+    end
+
+    def find_user(user_id)
+      if @sign_in_block
+        @sign_in_block.call(user_id)
+      else
+        Monban.config.user_class.find(user_id)
       end
     end
   end
