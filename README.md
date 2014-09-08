@@ -213,6 +213,16 @@ To enable this functionality you'll want to add the following to `config/environ
 config.middleware.insert_after Warden::Manager, Monban::BackDoor
 ```
 
+If you'd like to find your User model by a field other than `id`, insert the
+middleware with a block that accepts the `as` query parameter and returns an
+instance of your User model
+
+```ruby
+config.middleware.insert_after Warden::Manager, Monban::BackDoor do |user_param|
+  User.find_by(username: user_param)
+end
+```
+
 ### Controller Specs
 
 If you are going to write controller tests, helpers are provided for those as well:
