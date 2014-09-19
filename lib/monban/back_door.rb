@@ -20,7 +20,7 @@ module Monban
       @app = app
 
       if block
-        @sign_in_proc = Proc.new(&block)
+        @sing_in_block = block
       end
     end
 
@@ -43,8 +43,8 @@ module Monban
     end
 
     def find_user(user_id)
-      if @sign_in_proc
-        @sign_in_proc.call(user_id)
+      if @sing_in_block
+        @sing_in_block.call(user_id)
       else
         Monban.config.user_class.find(user_id)
       end
