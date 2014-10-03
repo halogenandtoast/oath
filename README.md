@@ -215,7 +215,7 @@ config.middleware.insert_after Warden::Manager, Monban::BackDoor
 
 If you'd like to find your User model by a field other than `id`, insert the
 middleware with a block that accepts the `as` query parameter and returns an
-instance of your User model
+instance of your User model:
 
 ```ruby
 config.middleware.insert_after Warden::Manager, Monban::BackDoor do |user_param|
