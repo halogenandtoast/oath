@@ -1,4 +1,5 @@
 == HEAD
+* `authenticate_session` arguments are coerced to Hash
 * Monban::BackDoor can be configured with a block
 * Document validation suggestions
 * Document locale suggestions
