@@ -10,6 +10,8 @@ RailsApp::Application.routes.draw do
     resource :constrained_to_visitors, only: [:show]
   end
 
+  get "http_basic_auth" => "http_auth#index"
+
   resources :posts, only: [:index]
   resources :users, only: [:create]
   resource :failure, only: [:show]
