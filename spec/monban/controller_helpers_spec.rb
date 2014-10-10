@@ -105,13 +105,11 @@ module Monban
     end
 
     it 'returns false when it could not authenticate the user' do
-      session_params = double()
-      session_params.should_receive(:fetch).with(:password).and_return('password')
-      session_params.should_receive(:except).with(:password).and_return(session_params)
+      session_params = { password: "password", lookup_key: "lookup_key" }
       user = double()
       authentication = double()
       authentication.should_receive(:perform).and_return(false)
-      Monban.should_receive(:lookup).with(session_params, nil).and_return(user)
+      Monban.should_receive(:lookup).with({lookup_key: "lookup_key"}, nil).and_return(user)
       Services::Authentication.should_receive(:new).with(user, 'password').and_return(authentication)
       @dummy.authenticate_session(session_params).should == false
     end
