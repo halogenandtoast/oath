@@ -20,7 +20,7 @@ module Monban
     def sign_in user, options = {}
       Monban.config.sign_in_service.new(user, warden).perform.tap do |status|
         if status
-          if options[:remember_me] && Monban.config.extensions.include?(:remember_me)
+          if options[:remember_me]
             cookies.permanent["remember_me"] = user.id
           end
 
