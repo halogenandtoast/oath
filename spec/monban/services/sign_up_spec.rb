@@ -36,4 +36,14 @@ describe Monban::Services::SignUp, '#perform' do
       expect(args[:password_digest]).to be_nil
     end
   end
+
+  it 'does not create a user with a nil password' do
+    allow(User).to receive(:create)
+    user_params = { email: nil, password: nil }
+
+    Monban::Services::SignUp.new(user_params).perform
+    expect(User).to have_received(:create) do |args|
+      expect(args[:password_digest]).to be_nil
+    end
+  end
 end
