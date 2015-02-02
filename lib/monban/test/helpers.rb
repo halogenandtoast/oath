@@ -8,8 +8,11 @@ module Monban
 
       # Sign a user in
       # @param user [User] user to sign in
+      # @returns user [User] signed in user
       def sign_in user
         login_as user
+
+        user
       end
 
       # Sign a user out

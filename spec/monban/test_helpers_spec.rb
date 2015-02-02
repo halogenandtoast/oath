@@ -64,7 +64,7 @@ module Monban
 
       it 'performs a sign in' do
         user = double(id: 1)
-        sign_in(user)
+        return_value = sign_in(user)
         app = lambda do |env|
           $captures << :run
           env['warden'].should be_authenticated
@@ -72,6 +72,8 @@ module Monban
           valid_response
         end
         setup_rack(app).call(env_with_params)
+
+        return_value.should eq(user)
         $captures.should eq([:run])
       end
 
