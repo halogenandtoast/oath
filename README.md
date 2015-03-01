@@ -175,7 +175,7 @@ end
 
 ### Spec helpers
 
-A couple of convenience methods are available in your tests.
+A couple of convenience methods are available in your tests. In order to set this up you'll want to add the following to `rails_helper.rb` or if that doesn't exist `spec_helper.rb`
 
 ```ruby
 Monban.test_mode!
@@ -187,6 +187,8 @@ RSpec.configure do |config|
   end
 end
 ```
+
+Then you can use any of the [test helpers] in your scenarios
 
 ```ruby
 feature "A feature spec" do
@@ -359,3 +361,4 @@ Here are a few of the current limitations of monban:
 5. Create new Pull Request
 
 [monban generators]: https://github.com/halogenandtoast/monban-generators
+[test helpers]: https://github.com/halogenandtoast/monban/blob/master/lib/monban/test/helpers.rb
