@@ -5,8 +5,9 @@ describe Monban::Services::SignIn, '#perform' do
   it 'signs the user in' do
     user = double()
     warden = double()
-    warden.should_receive(:set_user).with(user)
+    allow(warden).to receive(:set_user)
 
     Monban::Services::SignIn.new(user, warden).perform
+    expect(warden).to have_received(:set_user).with(user)
   end
 end

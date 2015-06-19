@@ -67,14 +67,14 @@ module Monban
         return_value = sign_in(user)
         app = lambda do |env|
           $captures << :run
-          env['warden'].should be_authenticated
-          env['warden'].user.should eq(user)
+          expect(env['warden']).to be_authenticated
+          expect(env['warden'].user).to eq(user)
           valid_response
         end
         setup_rack(app).call(env_with_params)
 
-        return_value.should eq(user)
-        $captures.should eq([:run])
+        expect(return_value).to eq(user)
+        expect($captures).to eq([:run])
       end
 
       it 'performs a sign out' do
@@ -85,12 +85,12 @@ module Monban
         app = lambda do |env|
           $captures << :run
           warden = env['warden']
-          warden.user.should be_nil
-          warden.should_not be_authenticated
+          expect(warden.user).to be_nil
+          expect(warden).not_to be_authenticated
         end
 
         setup_rack(app).call(env_with_params)
-        $captures.should eq([:run])
+        expect($captures).to eq([:run])
       end
     end
   end

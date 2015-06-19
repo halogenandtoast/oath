@@ -109,7 +109,7 @@ module Monban
     end
 
     def setup_warden_requirements
-      @failure_app = lambda{|e|[401, {"Content-Type" => "text/plain"}, ["Authorization Failed"]] }
+      @failure_app = Monban::FailureApp
       @authentication_strategy = Monban::Strategies::PasswordStrategy
     end
   end

@@ -7,7 +7,7 @@ feature 'Visitor signs up' do
     fill_in 'user_password', with: 'password'
     click_on 'go'
 
-    page.current_path.should eq(posts_path)
+    expect(page.current_path).to eq(posts_path)
   end
 
   scenario 'multiple users' do
@@ -26,6 +26,6 @@ feature 'Visitor signs up' do
     fill_in 'session_password', with: 'password'
     click_on 'go'
 
-    page.current_path.should eq(posts_path)
+    expect(page.current_path).to eq(posts_path)
   end
 end

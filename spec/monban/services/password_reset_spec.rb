@@ -11,10 +11,11 @@ describe Monban::Services::PasswordReset do
     password_digest = Monban.hash_token('password')
     user = double()
     field = Monban.config.user_token_store_field
-    user.should_receive(:[]=).with(field, 'passwordsecret')
+    allow(user).to receive(:[]=)
     password_reset = Monban::Services::PasswordReset.new(user, 'password')
 
     password_reset.perform
+    expect(user).to have_received(:[]=).with(field, 'passwordsecret')
   end
 
   after do

@@ -9,7 +9,7 @@ describe 'Monban' do
   it "provides a .test_mode!" do
     Monban.test_mode!
     expect(Monban.hash_token('password')).to eql('password')
-    expect(Monban.compare_token('password', 'password')).to be_true
+    expect(Monban.compare_token('password', 'password')).to be_truthy
   end
 
   it "allows lookup with a field_map" do
