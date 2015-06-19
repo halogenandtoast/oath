@@ -57,6 +57,15 @@ configure and change any of these:
 
 ### Suggestions
 
+#### Console Usage
+
+If you're trying to sign up a User in a console you won't be able to call User#new or User#create because the User model does not know how to encrypt passwords.
+You should instead use the sign up service in order to create the user:
+
+```ruby
+Monban.config.sign_up_service.new(email: "foo@example.com", password: "password").perform 
+```
+
 #### Validations
 
 Monban doesn't add validations to your user model unless you're using [monban generators] so it's suggested to add the following validations:
