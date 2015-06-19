@@ -1,5 +1,7 @@
-== master
+== 0.2.1
 * Updated documentation for test helpers
+* Updated documentation for using monban in console
+* Fixed bug with failure app now allowing actual http auth to occur
 
 == 0.2.0
 * `sign_in` test helper now returns the user
