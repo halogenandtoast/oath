@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  respond_to :html
-
   def new
     @user = User.new
   end
@@ -19,7 +17,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params[:user]
+    params.require(:user).permit(:email, :password)
   end
 end
 

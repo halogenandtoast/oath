@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  respond_to :html
-
   def new
   end
 
@@ -22,7 +20,7 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params[:session]
+    params.require(:session).permit(:email, :password)
   end
 end
 

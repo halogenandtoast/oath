@@ -5,6 +5,6 @@ feature 'Visitor signs up' do
     visit sign_up_path
     click_on 'go'
 
-    page.should_not have_content("Sign out")
+    expect(page).not_to have_content("Sign out")
   end
 end

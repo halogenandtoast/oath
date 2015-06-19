@@ -9,7 +9,7 @@ describe Monban::Services::SignUp, '#perform' do
     Monban::Services::SignUp.new(user_params).perform
     expect(User).to have_received(:create) do |args|
       expect(args[:email]).to eq(user_params[:email])
-      expect(Monban.compare_token(args[:password_digest], 'password')).to be_true
+      expect(Monban.compare_token(args[:password_digest], 'password')).to be_truthy
     end
   end
 
@@ -23,7 +23,7 @@ describe Monban::Services::SignUp, '#perform' do
     end
 
     expect(user_create_double).to have_received(:call) do |args|
-      expect(Monban.compare_token(args[:password_digest], 'password')).to be_true
+      expect(Monban.compare_token(args[:password_digest], 'password')).to be_truthy
     end
   end
 

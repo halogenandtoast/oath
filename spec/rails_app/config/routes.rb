@@ -20,4 +20,5 @@ RailsApp::Application.routes.draw do
   get "sign_up" => "users#new"
   get "invalid_sign_in" => "invalid_sessions#new"
   post "invalid_sign_in" => "invalid_sessions#create"
+  get "basic_auth" => "basic_auth#show"
 end
