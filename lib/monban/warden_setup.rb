@@ -22,13 +22,8 @@ module Monban
     attr_reader :warden_config
 
     def setup_warden_manager
-      Warden::Manager.serialize_into_session do |user|
-        user.id
-      end
-
-      Warden::Manager.serialize_from_session do |id|
-        Monban.config.user_class.find_by(id: id)
-      end
+      Warden::Manager.serialize_into_session(&serialize_into_session_method)
+      Warden::Manager.serialize_from_session(&serialize_from_session_method)
     end
 
     def setup_warden_strategies
@@ -39,6 +34,14 @@ module Monban
       warden_config.tap do |config|
         config.failure_app = Monban.config.failure_app
       end
+    end
+
+    def serialize_into_session_method
+      Monban.config.warden_serialize_into_session
+    end
+
+    def serialize_from_session_method
+      Monban.config.warden_serialize_from_session
     end
   end
 end
