@@ -18,7 +18,7 @@ module Monban
       # @return [false] if authentication fails
       def perform
         if authenticated?
-          @user
+          user
         else
           false
         end
@@ -26,8 +26,10 @@ module Monban
 
       private
 
+      attr_reader :user, :undigested_token
+
       def authenticated?
-        @user && Monban.compare_token(@user.send(token_store_field), @undigested_token)
+        user && Monban.compare_token(user.send(token_store_field), undigested_token)
       end
 
       def token_store_field

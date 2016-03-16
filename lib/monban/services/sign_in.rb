@@ -14,8 +14,12 @@ module Monban
 
       # Perform the service
       def perform
-        @warden.set_user(@user)
+        warden.set_user(user)
       end
+
+      private
+
+      attr_reader :warden, :user
     end
   end
 end

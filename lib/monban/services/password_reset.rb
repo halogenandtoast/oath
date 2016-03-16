@@ -15,9 +15,13 @@ module Monban
       # Perform the service.
       def perform
         field = Monban.config.user_token_store_field
-        digested_password = Monban.hash_token(@new_password)
-        @user[field] = digested_password
+        digested_password = Monban.hash_token(new_password)
+        user[field] = digested_password
       end
+
+      private
+
+      attr_reader :user, :new_password
     end
   end
 end

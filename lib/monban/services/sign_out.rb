@@ -8,12 +8,17 @@ module Monban
       # @param warden [Warden] warden
       def initialize warden
         @warden = warden
+        @user = warden.user
       end
 
       # Perform the service
       def perform
-        @warden.logout
+        warden.logout
       end
+
+      private
+
+      attr_reader :warden, :user
     end
   end
 end

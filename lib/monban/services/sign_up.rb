@@ -16,10 +16,12 @@ module Monban
       # Performs the service
       # @see Monban::Configuration.default_creation_method
       def perform
-        Monban.config.creation_method.call(@user_params.to_hash)
+        Monban.config.creation_method.call(user_params.to_hash)
       end
 
       private
+
+      attr_reader :user_params
 
       def token_digest(user_params)
         undigested_token = user_params[token_field]
