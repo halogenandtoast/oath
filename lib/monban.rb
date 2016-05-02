@@ -8,6 +8,7 @@ require "monban/failure_app"
 require "monban/back_door"
 require "monban/warden_setup"
 require "monban/field_map"
+require "monban/param_transformer"
 require "monban/strategies/password_strategy"
 require "active_support/core_ext/module/attribute_accessors"
 

@@ -12,6 +12,7 @@ module Monban
     attr_accessor :no_login_handler, :no_login_redirect
     attr_accessor :authentication_strategy
     attr_accessor :warden_serialize_into_session, :warden_serialize_from_session
+    attr_accessor :param_transformations
 
     attr_writer :user_class
 
@@ -21,13 +22,17 @@ module Monban
       setup_notices
       setup_services
       setup_warden
+      setup_param_transformations
     end
 
     # Default creation method. Can be overriden via {Monban.configure}
     #
     # @see #creation_method=
     def default_creation_method
-      ->(params) { Monban.config.user_class.create(params) }
+      ->(params) do
+        updated_params = transform_params(params)
+        Monban.config.user_class.create(updated_params)
+      end
     end
 
     # Default hashing method. Can be overriden via {Monban.configure}
@@ -48,7 +53,10 @@ module Monban
     # @see #find_method=
     # @see Monban.config.user_class
     def default_find_method
-      ->(params) { Monban.config.user_class.find_by(params) }
+      ->(params) do
+        updated_params = transform_params(params)
+        Monban.config.user_class.find_by(updated_params)
+      end
     end
 
     # Default token comparison method. Can be overriden via {Monban.configure}
@@ -122,6 +130,16 @@ module Monban
     def setup_warden_serialization
       @warden_serialize_into_session = -> (user) { user.id }
       @warden_serialize_from_session = -> (id) { Monban.config.user_class.find_by(id: id) }
+    end
+
+    def setup_param_transformations
+      @param_transformations = {
+        email: ->(value) { value.downcase }
+      }
+    end
+
+    def transform_params(params)
+      ParamTransformer.new(params, param_transformations).to_h
     end
   end
 end

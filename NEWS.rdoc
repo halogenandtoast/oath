@@ -1,5 +1,6 @@
 == master
 * Do not perform lookup if no params are passed to lookup
+* Add param transformer for sanitizing and normalizing
 
 == 0.3.1
 * Extend private interface for services
