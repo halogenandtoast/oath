@@ -12,9 +12,9 @@ describe 'Monban' do
     expect(Monban.compare_token('password', 'password')).to be_truthy
   end
 
-  it "allows lookup with a field_map" do
+  it "does not lookup with empty params" do
     allow(Monban::FieldMap).to receive(:new).and_return(fake_field_map)
-    with_monban_config(find_method: -> (conditions) { true }) do
+    with_monban_config(find_method: -> (conditions) { raise }) do
       expect(-> { Monban.lookup({}, {}) }).not_to raise_exception
     end
   end

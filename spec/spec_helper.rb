@@ -9,7 +9,7 @@ require 'capybara'
 
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
-   config.include Monban::Test::Helpers, type: :feature
+  config.include Monban::Test::Helpers, type: :feature
   config.order = "random"
 end
 
