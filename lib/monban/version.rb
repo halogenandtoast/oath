@@ -1,4 +1,4 @@
 module Monban
-  # 0.3.1
-  VERSION = "0.3.1"
+  # 1.0.0
+  VERSION = "1.0.0"
 end
