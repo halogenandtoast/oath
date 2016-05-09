@@ -7,7 +7,9 @@ module Monban
   module ControllerHelpers
     extend ActiveSupport::Concern
     included do
-      helper_method :current_user, :signed_in?
+      if respond_to?(:helper_method)
+        helper_method :current_user, :signed_in?
+      end
     end
 
     # Sign in a user
