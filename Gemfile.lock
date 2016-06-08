@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    monban (1.0.0)
+    monban (1.0.1)
       bcrypt
       rails
       warden
@@ -150,4 +150,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
