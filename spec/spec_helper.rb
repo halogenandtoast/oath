@@ -7,10 +7,16 @@ require 'warden'
 require 'monban'
 require 'capybara'
 
+Monban.test_mode!
+Warden.test_mode!
+
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Monban::Test::Helpers, type: :feature
   config.order = "random"
+  config.after :each do
+    Monban.test_reset!
+  end
 end
 
 def with_monban_config(hash, &block)

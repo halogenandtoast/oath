@@ -30,7 +30,7 @@ module Monban
     # @see #creation_method=
     def default_creation_method
       ->(params) do
-        updated_params = transform_params(params)
+        updated_params = Monban.transform_params(params)
         Monban.config.user_class.create(updated_params)
       end
     end
@@ -54,7 +54,7 @@ module Monban
     # @see Monban.config.user_class
     def default_find_method
       ->(params) do
-        updated_params = transform_params(params)
+        updated_params = Monban.transform_params(params)
         Monban.config.user_class.find_by(updated_params)
       end
     end
@@ -134,12 +134,8 @@ module Monban
 
     def setup_param_transformations
       @param_transformations = {
-        email: ->(value) { value.downcase }
+        "email" => ->(value) { value.downcase }
       }
-    end
-
-    def transform_params(params)
-      ParamTransformer.new(params, param_transformations).to_h
     end
   end
 end

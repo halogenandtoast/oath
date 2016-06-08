@@ -10,6 +10,15 @@ feature 'Visitor signs up' do
     expect(page.current_path).to eq(posts_path)
   end
 
+  scenario 'with uppercase email' do
+    visit sign_up_path
+    fill_in 'user_email', with: 'Email@example.com'
+    fill_in 'user_password', with: 'password'
+    click_on 'go'
+
+    expect(User.last.email).to eq('email@example.com')
+  end
+
   scenario 'multiple users' do
     visit sign_up_path
     fill_in 'user_email', with: 'email@example.com'

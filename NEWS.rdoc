@@ -1,5 +1,6 @@
-== master
+== 1.0.1
 * Wrap helper_method calls in respond_to?(:helper_method)
+* param_transformations now correctly use string keys
 
 == 1.0.0
 * Do not perform lookup if no params are passed to lookup

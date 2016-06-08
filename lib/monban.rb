@@ -55,6 +55,17 @@ module Monban
     config.hashing_method.call(token)
   end
 
+
+  # performs transformations on params for signing up and
+  # signing in
+  #
+  # @param params [Hash] hash of parameters to transform
+  # @see Monban::Configuration#param_transofmrations
+  # @return [Hash] hash with transformed parameters
+  def self.transform_params(params)
+    ParamTransformer.new(params, config.param_transformations).to_h
+  end
+
   # the user class
   #
   # @see Monban::Configuration#setup_class_defaults
