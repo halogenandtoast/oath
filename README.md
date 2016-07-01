@@ -63,7 +63,7 @@ If you're trying to sign up a User in a console you won't be able to call User#n
 You should instead use the sign up service in order to create the user:
 
 ```ruby
-Monban.config.sign_up_service.new(email: "foo@example.com", password: "password").perform 
+Monban.config.sign_up_service.new(email: "foo@example.com", password: "password").perform
 ```
 
 #### Validations
@@ -328,7 +328,7 @@ Monban::Configuration has lots of options for changing how monban works. Current
 * **user_lookup_field**: (default `:email`) Field in the database to lookup a user by.
 * **user_token_field**: (default `:password`) Field the form submits containing the undigested password.
 * **user_token_store_field**: (default: `:password_digest`) Field in the database that stores the user's digested password.
-* **user_class**: (default: `User`) The user class.
+* **user_class**: (default: `'User'`) The user class.
 
 ### Services
 
