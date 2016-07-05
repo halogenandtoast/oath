@@ -148,7 +148,7 @@ module Monban
       @dummy.require_login
       expect(@dummy.redirected).to eq(true)
       expect(@dummy.redirected_to).to eq(Monban.config.no_login_redirect)
-      expect(@dummy.flash.notice).to eq(Monban.config.sign_in_notice)
+      expect(@dummy.flash.notice).to eq(Monban.config.sign_in_notice.call)
     end
 
     it 'does not redirect when signed_in' do

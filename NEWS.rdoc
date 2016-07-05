@@ -1,3 +1,6 @@
+== master
+* `Monban.config.sign_in_notice` should now be a callable object in order for I18n to work correctly
+
 == 1.0.1
 * Wrap helper_method calls in respond_to?(:helper_method)
 * param_transformations now correctly use string keys

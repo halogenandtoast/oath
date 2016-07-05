@@ -75,7 +75,15 @@ module Monban
     # @see #no_login_redirect
     def default_no_login_handler
       ->(controller) do
-        controller.flash.notice = Monban.config.sign_in_notice
+        notice = Monban.config.sign_in_notice
+
+        if notice.respond_to?(:call)
+          controller.flash.notice = notice.call
+        else
+          warn "[DEPRECATION] `Monban.config.sign_in_notice` should be a lambda instead of a string"
+          controller.flash.notice = notice
+        end
+
         controller.redirect_to Monban.config.no_login_redirect
       end
     end
@@ -95,7 +103,7 @@ module Monban
     end
 
     def setup_notices
-      @sign_in_notice = 'You must be signed in'
+      @sign_in_notice = -> { 'You must be signed in' }
     end
 
     def setup_class_defaults

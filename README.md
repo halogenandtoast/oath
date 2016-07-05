@@ -122,6 +122,18 @@ end
 
 This article on the [Null Object Pattern](http://robots.thoughtbot.com/handling-associations-on-null-objects) provides a good explanation of why you might want to do this.
 
+#### Using I18n for sign in notice
+
+If you want to use I18n for the notice instructing users to sign in when they try to access an unauthorized page you can do so with the following configuration:
+
+```ruby
+Monban.configure do |config|
+  config.sign_in_notice = -> { I18n.t("sign_in_notice") }
+end
+```
+
+It is suggested to store this file at `config/initializers/monban.rb`
+
 ### Controller Additions
 
 Monban provides the following controller methods:
