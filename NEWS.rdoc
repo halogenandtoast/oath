@@ -1,5 +1,6 @@
-== master
+== 1.1.0
 * `Monban.config.sign_in_notice` should now be a callable object in order for I18n to work correctly
+* [DEPRECATED] you should no longer set `Monban.config.sign_in_notice` to a string value
 
 == 1.0.1
 * Wrap helper_method calls in respond_to?(:helper_method)
