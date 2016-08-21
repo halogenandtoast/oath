@@ -12,7 +12,7 @@ module Monban
     attr_accessor :no_login_handler, :no_login_redirect
     attr_accessor :authentication_strategy
     attr_accessor :warden_serialize_into_session, :warden_serialize_from_session
-    attr_accessor :param_transformations
+    attr_accessor :param_transformations, :param_transformation_method
 
     attr_writer :user_class
 
@@ -54,8 +54,14 @@ module Monban
     # @see Monban.config.user_class
     def default_find_method
       ->(params) do
-        updated_params = Monban.transform_params(params)
-        Monban.config.user_class.find_by(updated_params)
+        Monban.config.user_class.find_by(params)
+      end
+    end
+
+    def default_param_transformation_method
+      ->(params, field_map) do
+        transformed_params = Monban.transform_params(params)
+        FieldMap.new(transformed_params, field_map).to_fields
       end
     end
 
@@ -141,6 +147,7 @@ module Monban
     end
 
     def setup_param_transformations
+      @param_transformation_method = default_param_transformation_method
       @param_transformations = {
         "email" => ->(value) { value.downcase }
       }

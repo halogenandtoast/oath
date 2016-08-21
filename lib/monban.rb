@@ -86,8 +86,10 @@ module Monban
   # @return [nil] if no user is found
   def self.lookup(params, field_map)
     if params.present?
-      fields = FieldMap.new(params, field_map).to_fields
-      self.config.find_method.call(fields)
+      transform = Monban.config.param_transformation_method
+
+      updated_params = transform.call(params, field_map)
+      self.config.find_method.call(updated_params)
     end
   end
 
