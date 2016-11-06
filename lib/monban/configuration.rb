@@ -54,8 +54,7 @@ module Monban
     # @see Monban.config.user_class
     def default_find_method
       ->(params) do
-        updated_params = Monban.transform_params(params)
-        Monban.config.user_class.find_by(updated_params)
+        Monban.config.user_class.find_by(params)
       end
     end
 
