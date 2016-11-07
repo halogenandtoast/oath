@@ -5,7 +5,7 @@ class MultipleAttributesSessionsController < ApplicationController
   def create
     user = authenticate_session(
       session_params,
-      email_or_username: [:email, :email_or_username],
+      email_or_username: [:email, :username],
     )
 
     if sign_in(user)

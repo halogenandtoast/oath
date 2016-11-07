@@ -54,8 +54,7 @@ module Oath
     # @see Oath.config.user_class
     def default_find_method
       ->(params) do
-        updated_params = Oath.transform_params(params)
-        Oath.config.user_class.find_by(updated_params)
+        Oath.config.user_class.find_by(params)
       end
     end
 
