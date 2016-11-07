@@ -18,7 +18,12 @@ RailsApp::Application.routes.draw do
   post "sign_in" => "sessions#create"
   delete "sign_out" => "sessions#destroy"
   get "sign_up" => "users#new"
+
   get "invalid_sign_in" => "invalid_sessions#new"
   post "invalid_sign_in" => "invalid_sessions#create"
+
+  get "multiple_attributes_sign_in" => "multiple_attributes_sessions#new"
+  post "multiple_attributes_sign_in" => "multiple_attributes_sessions#create"
+
   get "basic_auth" => "basic_auth#show"
 end
