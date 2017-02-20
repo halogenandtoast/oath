@@ -12,7 +12,7 @@ feature 'User signs in' do
     expect(current_path).to eq posts_path
   end
 
-  scenario 'with username or password' do
+  scenario 'with email or username' do
     user = User.create!(
       email: "example@example.com",
       password_digest: "password",
