@@ -1,5 +1,5 @@
 class FailuresController < ApplicationController
   def show
-    render status: :unauthorized, text: "Unauthorized"
+    render status: :unauthorized, plain: "Unauthorized"
   end
 end

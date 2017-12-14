@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::Base
-  include Monban::ControllerHelpers
+  include Oath::ControllerHelpers
   protect_from_forgery
 end

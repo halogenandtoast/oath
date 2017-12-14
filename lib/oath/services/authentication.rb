@@ -1,0 +1,40 @@
+module Oath
+  module Services
+    # Authentication service. Checks to see if the credentials provided are valid
+    # @since 0.0.15
+    class Authentication
+      # Initialize service
+      #
+      # @param user [User] A user object
+      # @param undigested_token [String] An undigested password
+      def initialize user, undigested_token
+        @user = user
+        @undigested_token = undigested_token
+      end
+
+      # Perform the service
+      #
+      # @return [User] if authentication succeeds
+      # @return [false] if authentication fails
+      def perform
+        if authenticated?
+          user
+        else
+          false
+        end
+      end
+
+      private
+
+      attr_reader :user, :undigested_token
+
+      def authenticated?
+        user && Oath.compare_token(user.send(token_store_field), undigested_token)
+      end
+
+      def token_store_field
+        Oath.config.user_token_store_field
+      end
+    end
+  end
+end

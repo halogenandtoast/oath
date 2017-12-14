@@ -1,6 +1,6 @@
 == 1.1.0
-* `Monban.config.sign_in_notice` should now be a callable object in order for I18n to work correctly
-* [DEPRECATED] you should no longer set `Monban.config.sign_in_notice` to a string value
+* `Oath.config.sign_in_notice` should now be a callable object in order for I18n to work correctly
+* [DEPRECATED] you should no longer set `Oath.config.sign_in_notice` to a string value
 
 == 1.0.1
 * Wrap helper_method calls in respond_to?(:helper_method)
@@ -18,17 +18,17 @@
 
 == 0.2.1
 * Updated documentation for test helpers
-* Updated documentation for using monban in console
+* Updated documentation for using oath in console
 * Fixed bug with failure app now allowing actual http auth to occur
 
 == 0.2.0
 * `sign_in` test helper now returns the user
 * `authenticate_session` arguments are coerced to Hash
-* Monban::BackDoor can be configured with a block
+* Oath::BackDoor can be configured with a block
 * Document validation suggestions
 * Document locale suggestions
-* Deprecate usage of Monban.user_class in favor of Monban.config.user_class
-* Make warden strategy configurable via Monban.config.authentication_strategy
+* Deprecate usage of Oath.user_class in favor of Oath.config.user_class
+* Make warden strategy configurable via Oath.config.authentication_strategy
 * Extract warden setup into the WardenSetup class
 * Document layout suggestions
 
@@ -63,8 +63,8 @@
 * Remove last trace of generators.
 
 == 0.0.13
-* Monban requires Rails 4+.
-* Move generators to the monban-generators gem.
+* Oath requires Rails 4+.
+* Move generators to the oath-generators gem.
 
 == 0.0.12
 * Ensure forms can't be tampered with by providing no username.
@@ -72,19 +72,19 @@
 * Memoize the configuration.
 
 == 0.0.11
-* Add `Monban::Backdoor` for easier tests.
+* Add `Oath::Backdoor` for easier tests.
 
 == 0.0.10
-* Add Monban::Test::ControllerHelpers for controller specs.
+* Add Oath::Test::ControllerHelpers for controller specs.
 * Depend on the bcrypt gem, not the bcrypt-ruby gem.
 
 == 0.0.9
 * Make user creation method configurable.
 * Redirect to SessionsController#new, ignoring namespace.
-* Add `Monban.config.creation_method`.
+* Add `Oath.config.creation_method`.
 
 == 0.0.8
-* Now configurable via `Monban.configure`:
+* Now configurable via `Oath.configure`:
   * sign in service
   * sign up service
   * authentication service
@@ -94,8 +94,8 @@
 * Rename controller_helpers to services.
 * Allos blocks to be passed into sign_in and sign_up.
 * Fix error on trying to respond with HTTP 401.
-* Monban does not generate a User model for you.
-* Add `Monban.test_mode!` and `Monban.test_reset!`.
+* Oath does not generate a User model for you.
+* Add `Oath.test_mode!` and `Oath.test_reset!`.
 * Add a lot of tests.
 
 == 0.0.7

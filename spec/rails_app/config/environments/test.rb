@@ -1,6 +1,6 @@
 RailsApp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  config.middleware.insert_after Warden::Manager, Monban::BackDoor
+  config.middleware.insert_after Warden::Manager, Oath::BackDoor
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

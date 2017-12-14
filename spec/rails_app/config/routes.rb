@@ -1,12 +1,12 @@
-require 'monban/constraints/signed_in'
-require 'monban/constraints/signed_out'
+require 'oath/constraints/signed_in'
+require 'oath/constraints/signed_out'
 
 RailsApp::Application.routes.draw do
-  constraints Monban::Constraints::SignedIn.new do
+  constraints Oath::Constraints::SignedIn.new do
     resource :constrained_to_users, only: [:show]
   end
 
-  constraints Monban::Constraints::SignedOut.new do
+  constraints Oath::Constraints::SignedOut.new do
     resource :constrained_to_visitors, only: [:show]
   end
 

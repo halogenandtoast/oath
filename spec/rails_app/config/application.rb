@@ -15,7 +15,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-require 'monban'
+require 'oath'
 
 module RailsApp
   class Application < Rails::Application

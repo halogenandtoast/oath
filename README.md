@@ -3,27 +3,26 @@
 Monban is currently in the process of being renamed Oath: https://github.com/halogenandtoast/oath
 
 
-# Monban 門番
+# Oath
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/halogenandtoast/monban?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/halogenandtoast/oath?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Build Status](https://travis-ci.org/halogenandtoast/monban.png?branch=master)](https://travis-ci.org/halogenandtoast/monban)
-[![Code Climate](https://codeclimate.com/github/halogenandtoast/monban.png)](https://codeclimate.com/github/halogenandtoast/monban)
+[![Build Status](https://travis-ci.org/halogenandtoast/oath.png?branch=master)](https://travis-ci.org/halogenandtoast/oath)
+[![Code Climate](https://codeclimate.com/github/halogenandtoast/oath.png)](https://codeclimate.com/github/halogenandtoast/oath)
 
-
-Monban is designed to be a very simple and extensible user authentication
+Oath is designed to be a very simple and extensible user authentication
 library for rails. Its goal is to give all the power to the developer instead
-of forcing them to make Monban work with their system.
+of forcing them to make Oath work with their system.
 
-## Why use Monban?
+## Why use Oath?
 
-Monban makes authentication simple:
+Oath makes authentication simple:
 
 - Easy to use in tests with dependency injection
 - Provides convenient controller helpers
 - Very customizable
 
-Monban doesn't do the following:
+Oath doesn't do the following:
 
 - Doesn't automatically add routes to your application
 - Doesn't force you to use engine based controllers or views
@@ -31,31 +30,31 @@ Monban doesn't do the following:
 
 ## Documentation
 
-You can read the full documentation at [rubydoc](http://rubydoc.info/github/halogenandtoast/monban)
+You can read the full documentation at [rubydoc](http://rubydoc.info/github/halogenandtoast/oath)
 
 ## Installation
 
-Monban was designed to work with Rails > 4.0. Add this line to your Gemfile:
+Oath was designed to work with Rails > 4.0. Add this line to your Gemfile:
 
-    gem 'monban'
+    gem 'oath'
 
 Then inside of your ApplicationController add the following:
 
-    include Monban::ControllerHelpers
+    include Oath::ControllerHelpers
 
 And you're ready to start designing your authentication system.
 
 ## Generators
 
-If you'd like a good starting point for building an app using Monban, it is suggested to use the [monban generators]
+If you'd like a good starting point for building an app using Oath, it is suggested to use the [oath generators]
 
 ## Usage
 
-Monban does currently have some out-of-the-box expectations, but you can
+Oath does currently have some out-of-the-box expectations, but you can
 configure and change any of these:
 
 - By default the model should be called `User`
-- Monban expects your user model to respond to `create`, `id`, and `find_by`
+- Oath expects your user model to respond to `create`, `id`, and `find_by`
 - You should have an `email` and `password_digest` column on your `User`
 - Passwords will be handled with BCrypt
 
@@ -67,12 +66,12 @@ If you're trying to sign up a User in a console you won't be able to call User#n
 You should instead use the sign up service in order to create the user:
 
 ```ruby
-Monban.config.sign_up_service.new(email: "foo@example.com", password: "password").perform
+Oath.config.sign_up_service.new(email: "foo@example.com", password: "password").perform
 ```
 
 #### Validations
 
-Monban doesn't add validations to your user model unless you're using [monban generators] so it's suggested to add the following validations:
+Oath doesn't add validations to your user model unless you're using [oath generators] so it's suggested to add the following validations:
 
 ```ruby
 validates :email, presence: true, uniqueness: true
@@ -106,7 +105,7 @@ It is suggested you add something like this to your application layout:
 
 #### Guest user
 
-If you want to introduce a Guest object when a user is not signed in, you can override Monban's `current_user` method in your `ApplicationController`:
+If you want to introduce a Guest object when a user is not signed in, you can override Oath's `current_user` method in your `ApplicationController`:
 
 ```ruby
 def current_user
@@ -131,16 +130,16 @@ This article on the [Null Object Pattern](http://robots.thoughtbot.com/handling-
 If you want to use I18n for the notice instructing users to sign in when they try to access an unauthorized page you can do so with the following configuration:
 
 ```ruby
-Monban.configure do |config|
+Oath.configure do |config|
   config.sign_in_notice = -> { I18n.t("sign_in_notice") }
 end
 ```
 
-It is suggested to store this file at `config/initializers/monban.rb`
+It is suggested to store this file at `config/initializers/oath.rb`
 
 ### Controller Additions
 
-Monban provides the following controller methods:
+Oath provides the following controller methods:
 
 - `sign_in(user)`
 - `sign_out`
@@ -163,15 +162,15 @@ And this filter:
 To authorize users in `config/routes.rb`:
 
 ```ruby
-require "monban/constraints/signed_in"
-require "monban/constraints/signed_out"
+require "oath/constraints/signed_in"
+require "oath/constraints/signed_out"
 
 Blog::Application.routes.draw do
-  constraints Monban::Constraints::SignedIn.new do
+  constraints Oath::Constraints::SignedIn.new do
     root "dashboards#show", as: :dashboard
   end
 
-  constraints Monban::Constraints::SignedOut.new do
+  constraints Oath::Constraints::SignedOut.new do
     root "landings#show"
   end
 end
@@ -181,10 +180,10 @@ end
 
 ### Test mode
 
-Monban provides the following:
+Oath provides the following:
 
 ```ruby
-Monban.test_mode!
+Oath.test_mode!
 ```
 
 Which will change password hashing method to provide plaintext responses instead of using BCrypt. This will allow you to write factories using the password_digest field:
@@ -203,12 +202,12 @@ end
 A couple of convenience methods are available in your tests. In order to set this up you'll want to add the following to `rails_helper.rb` or if that doesn't exist `spec_helper.rb`
 
 ```ruby
-Monban.test_mode!
+Oath.test_mode!
 
 RSpec.configure do |config|
-  config.include Monban::Test::Helpers, type: :feature
+  config.include Oath::Test::Helpers, type: :feature
   config.after :each do
-    Monban.test_reset!
+    Oath.test_reset!
   end
 end
 ```
@@ -227,7 +226,7 @@ feature "A feature spec" do
 end
 ```
 
-### Monban Backdoor
+### Oath Backdoor
 
 Similar to clearance's backdoor you can visit a path and sign in quickly via
 
@@ -239,7 +238,7 @@ visit dashboard_path(as: user)
 To enable this functionality you'll want to add the following to `config/environments/test.rb`:
 
 ```ruby
-config.middleware.insert_after Warden::Manager, Monban::BackDoor
+config.middleware.insert_after Warden::Manager, Oath::BackDoor
 ```
 
 If you'd like to find your User model by a field other than `id`, insert the
@@ -247,7 +246,7 @@ middleware with a block that accepts the `as` query parameter and returns an
 instance of your User model:
 
 ```ruby
-config.middleware.insert_after Warden::Manager, Monban::BackDoor do |user_param|
+config.middleware.insert_after Warden::Manager, Oath::BackDoor do |user_param|
   User.find_by(username: user_param)
 end
 ```
@@ -257,12 +256,12 @@ end
 If you are going to write controller tests, helpers are provided for those as well:
 
 ```ruby
-Monban.test_mode!
+Oath.test_mode!
 
 RSpec.configure do |config|
-  config.include Monban::Test::ControllerHelpers, type: :controller
+  config.include Oath::Test::ControllerHelpers, type: :controller
   config.after :each do
-    Monban.test_reset!
+    Oath.test_reset!
   end
 end
 ```
@@ -295,13 +294,13 @@ end
 If you want to sign in with username instead of email just change the configuration option
 
 ```ruby
-# config/initializers/monban.rb
-Monban.configure do |config|
+# config/initializers/oath.rb
+Oath.configure do |config|
   config.user_lookup_field = :username
 end
 ```
 
-If you used the monban:scaffold generator from [monban generators] you'll have to change the following four references to email.
+If you used the oath:scaffold generator from [oath generators] you'll have to change the following four references to email.
 
 * In SessionsController#session_params
 * In UsersController#user_params
@@ -337,7 +336,7 @@ This will allow the user to enter either their username or email to login
 
 ## Configuration
 
-Monban::Configuration has lots of options for changing how monban works. Currently the options you can change are as follows:
+Oath::Configuration has lots of options for changing how oath works. Currently the options you can change are as follows:
 
 ### User values
 
@@ -349,11 +348,11 @@ Monban::Configuration has lots of options for changing how monban works. Current
 ### Services
 
 * **sign_in_notice**: (default: `You must be signed in`) Rails flash message to set when user signs in.
-* **sign_in_service**: (default: `Monban::Services::SignIn`) Service for signing a user in.
-* **sign_up_service**: (default: `Monban::Services::SignUp`) Service for signing a user up.
-* **sign_out_service**: (default: `Monban::Services::SignOut`) Service for signing a user out.
-* **authentication_service**: (default: `Monban::Services::Authentication`) Service for authenticated a user.
-* **password_reset_service**: (default: `Monban::Services::PasswordReset`) Service for resetting a user's password.
+* **sign_in_service**: (default: `Oath::Services::SignIn`) Service for signing a user in.
+* **sign_up_service**: (default: `Oath::Services::SignUp`) Service for signing a user up.
+* **sign_out_service**: (default: `Oath::Services::SignOut`) Service for signing a user out.
+* **authentication_service**: (default: `Oath::Services::Authentication`) Service for authenticated a user.
+* **password_reset_service**: (default: `Oath::Services::PasswordReset`) Service for resetting a user's password.
 
 ### Rails values
 
@@ -373,17 +372,17 @@ Monban::Configuration has lots of options for changing how monban works. Current
 
 ## Limitations
 
-Here are a few of the current limitations of monban:
+Here are a few of the current limitations of oath:
 
-- Monban assumes you only have one user model.
+- Oath assumes you only have one user model.
 
 ## Contributing
 
-1. [Fork it](https://github.com/halogenandtoast/monban/fork)
+1. [Fork it](https://github.com/halogenandtoast/oath/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-[monban generators]: https://github.com/halogenandtoast/monban-generators
-[test helpers]: https://github.com/halogenandtoast/monban/blob/master/lib/monban/test/helpers.rb
+[oath generators]: https://github.com/halogenandtoast/oath-generators
+[test helpers]: https://github.com/halogenandtoast/oath/blob/master/lib/oath/test/helpers.rb
