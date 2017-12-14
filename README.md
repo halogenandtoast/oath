@@ -1,3 +1,7 @@
+# NOTICE
+
+Monban is currently in the process of being renamed Oath: https://github.com/halogenandtoast/oath
+
 
 # Monban 門番
 
