@@ -189,7 +189,7 @@ Which will change password hashing method to provide plaintext responses instead
 ```ruby
 FactoryBot.define do
   factory :user do
-    username 'wombat'
+    sequence(:email) { |n| "user#{n}@example.com" }
     password_digest 'password'
   end
 end
