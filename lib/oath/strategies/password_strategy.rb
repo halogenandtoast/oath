@@ -17,7 +17,7 @@ module Oath
       def authenticate!
         user = Oath.config.user_class.find_by(lookup_field => lookup_field_value)
         auth = Oath.config.authentication_service.new(user, token_field_value)
-        auth.authenticated? ? success!(user) : fail!("Could not log in")
+        auth.perform ? success!(user) : fail!("Could not log in")
       end
 
       private
