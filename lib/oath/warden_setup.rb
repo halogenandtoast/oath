@@ -27,7 +27,7 @@ module Oath
     end
 
     def setup_warden_strategies
-      Warden::Strategies.add(:password_strategy, Oath.config.authentication_strategy)
+      Warden::Strategies.add(:oath, Oath.config.oath_strategy)
     end
 
     def setup_warden_config

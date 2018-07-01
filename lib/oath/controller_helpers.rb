@@ -51,6 +51,12 @@ module Oath
       end
     end
 
+    # Authenticates a user using the warden oath strategy
+
+    def authenticate!
+      warden.authenticate!(Oath.config.warden_authentication_strategies)
+    end
+
     # Authenticates a session.
     #
     # @note Uses the {Oath::Services::Authentication} service to verify the user's details

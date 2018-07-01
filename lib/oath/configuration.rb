@@ -10,7 +10,7 @@ module Oath
     attr_accessor :failure_app
     attr_accessor :creation_method, :find_method
     attr_accessor :no_login_handler, :no_login_redirect
-    attr_accessor :authentication_strategy
+    attr_accessor :oath_strategy, :warden_authentication_strategies
     attr_accessor :warden_serialize_into_session, :warden_serialize_from_session
     attr_accessor :param_transformations
 
@@ -132,7 +132,8 @@ module Oath
 
     def setup_warden_requirements
       @failure_app = Oath::FailureApp
-      @authentication_strategy = Oath::Strategies::PasswordStrategy
+      @oath_strategy = Oath::Strategies::PasswordStrategy
+      @warden_authentication_strategies = [:oath]
     end
 
     def setup_warden_serialization

@@ -12,11 +12,11 @@ module Oath
         lookup_field_value || token_field_value
       end
 
-
       # Authenticates for warden
       def authenticate!
         user = Oath.config.user_class.find_by(lookup_field => lookup_field_value)
         auth = Oath.config.authentication_service.new(user, token_field_value)
+
         auth.perform ? success!(user) : fail!("Could not log in")
       end
 
@@ -31,11 +31,11 @@ module Oath
       end
 
       def lookup_field
-        Oath.config.user_lookup_field
+        Oath.config.user_lookup_field.to_s
       end
 
       def token_field
-        Oath.config.user_token_field
+        Oath.config.user_token_field.to_s
       end
     end
   end

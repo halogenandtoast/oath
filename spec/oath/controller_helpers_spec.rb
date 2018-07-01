@@ -143,6 +143,12 @@ module Oath
       expect(@dummy).not_to have_received(:current_user)
     end
 
+    it 'uses warden strategy for authenticate!' do
+      allow(@warden).to receive(:authenticate!)
+      @dummy.authenticate!
+      expect(@warden).to have_received(:authenticate!).with([:oath])
+    end
+
     it 'redirects when not signed_in' do
       allow(@warden).to receive(:user).and_return(false)
       @dummy.require_login
