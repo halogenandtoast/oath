@@ -18,6 +18,10 @@ feature 'User signs in' do
       password_digest: "password",
       username: "example",
     )
+    allow(User).to receive(:where).with({ id: user.id }).and_call_original
+    allow(User).to receive(:where).with(
+      ["email = ? OR username = ?", "example", "example"]
+    ).and_return([user])
 
     visit multiple_attributes_sign_in_path
     fill_in "session_email_or_username", with: user.username
