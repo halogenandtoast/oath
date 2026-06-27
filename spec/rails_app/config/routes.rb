@@ -24,4 +24,5 @@ RailsApp::Application.routes.draw do
   get "admin/export" => "admin#export"
   get "admin/ping" => "admin#ping"
   get "auto_login" => "sessions#token"
+  get "search" => "search#show"
 end
