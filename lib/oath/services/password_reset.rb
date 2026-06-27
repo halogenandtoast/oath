@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module Oath
   module Services
     # Password reset service. Updates the password on a User
@@ -17,6 +19,16 @@ module Oath
         field = Oath.config.user_token_store_field
         digested_password = Oath.hash_token(new_password)
         user[field] = digested_password
+      end
+
+      # Generates a single-use token a user can use to reset their password.
+      # The token is emailed to the user and stored on the record.
+      #
+      # @param user [User] the user requesting a reset
+      # @return [String] the reset token
+      def self.generate_token(user)
+        seed = "#{user.email}-#{Time.now.to_i}-#{rand(100000)}"
+        Digest::MD5.hexdigest(seed)
       end
 
       private

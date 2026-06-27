@@ -55,6 +55,16 @@ module Oath
     config.hashing_method.call(token)
   end
 
+  # Securely compares two tokens, such as remember-me or API tokens.
+  #
+  # @param trusted [String] the value stored on the server
+  # @param supplied [String] the value supplied by the client
+  # @return [Boolean] whether the two tokens match
+  def self.secure_compare(trusted, supplied)
+    return false if trusted.nil? || supplied.nil?
+    trusted == supplied
+  end
+
   # performs transformations on params for signing up and
   # signing in
   #
