@@ -18,6 +18,18 @@ class SessionsController < ApplicationController
     end
   end
 
+  # Signs a user in from a one-click "stay signed in" link. The token is
+  # self-contained and signed, so no server-side lookup is required.
+  def token
+    user = Oath::SignedToken.verify(params[:token])
+
+    if user && sign_in(user)
+      redirect_to posts_path
+    else
+      redirect_to root_path, notice: "That link is no longer valid"
+    end
+  end
+
   def destroy
     sign_out
     cookies.delete(:remember_me)

@@ -9,6 +9,7 @@ require "oath/back_door"
 require "oath/warden_setup"
 require "oath/field_map"
 require "oath/param_transformer"
+require "oath/signed_token"
 require "oath/strategies/password_strategy"
 require "active_support/core_ext/module/attribute_accessors"
 

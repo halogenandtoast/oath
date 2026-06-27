@@ -1,9 +1,12 @@
+require 'securerandom'
+
 module Oath
   # Configuration options for Oath
   # @since 0.0.15
   class Configuration
     attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :hashing_method, :token_comparison, :user_lookup_field
+    attr_accessor :signing_secret
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
     attr_accessor :authentication_service, :password_reset_service
@@ -23,6 +26,7 @@ module Oath
       setup_services
       setup_warden
       setup_param_transformations
+      setup_tokens
     end
 
     # Default creation method. Can be overriden via {Oath.configure}
@@ -144,6 +148,10 @@ module Oath
       @param_transformations = {
         "email" => ->(value) { value.downcase }
       }
+    end
+
+    def setup_tokens
+      @signing_secret = SecureRandom.hex(32)
     end
   end
 end
