@@ -128,6 +128,17 @@ module Oath
       Oath.config.password_reset_service.new(user, password).perform
     end
 
+    # Validates the bearer token supplied by API clients against the
+    # configured token using a constant-time comparison.
+    #
+    # @return [Boolean] whether the supplied token is valid
+    def valid_api_token?
+      supplied = request.headers["X-Api-Token"] || params[:api_token]
+      return false unless supplied.present?
+
+      Oath.secure_compare(Oath.config.api_token, supplied)
+    end
+
     # @api private
     def warden
       request.env['warden']

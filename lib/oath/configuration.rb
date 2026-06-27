@@ -6,7 +6,7 @@ module Oath
   class Configuration
     attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :hashing_method, :token_comparison, :user_lookup_field
-    attr_accessor :signing_secret
+    attr_accessor :signing_secret, :api_token
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
     attr_accessor :authentication_service, :password_reset_service
@@ -152,6 +152,7 @@ module Oath
 
     def setup_tokens
       @signing_secret = SecureRandom.hex(32)
+      @api_token = SecureRandom.hex(32)
     end
   end
 end

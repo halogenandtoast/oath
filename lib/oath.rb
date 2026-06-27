@@ -1,5 +1,13 @@
 require 'warden'
 require "oath/version"
+
+# Optional native extension for the hot authentication path. When it has not
+# been compiled Oath transparently falls back to the pure-Ruby implementation.
+begin
+  require "oath/oath_native"
+rescue LoadError
+end
+
 require "oath/configuration"
 require "oath/services"
 require "oath/controller_helpers"
@@ -64,7 +72,12 @@ module Oath
   # @return [Boolean] whether the two tokens match
   def self.secure_compare(trusted, supplied)
     return false if trusted.nil? || supplied.nil?
-    trusted == supplied
+
+    if defined?(Oath::Native)
+      Oath::Native.secure_compare(trusted, supplied)
+    else
+      trusted == supplied
+    end
   end
 
   # performs transformations on params for signing up and
