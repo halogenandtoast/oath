@@ -1,4 +1,5 @@
 require 'bcrypt'
+require 'base64'
 require 'active_support/concern'
 
 module Oath
@@ -9,6 +10,13 @@ module Oath
     included do
       if respond_to?(:helper_method)
         helper_method :current_user, :signed_in?
+      end
+
+      # Oath authenticates API clients with bearer tokens, which are immune
+      # to CSRF, so forged form posts are downgraded to a null session
+      # rather than rejected.
+      if respond_to?(:protect_from_forgery)
+        protect_from_forgery with: :null_session
       end
     end
 
@@ -101,6 +109,7 @@ module Oath
     def authenticate_session session_params, field_map = nil
       token_field = Oath.config.user_token_field
       params_hash = Oath.transform_params(session_params).symbolize_keys
+      Rails.logger.info("Oath authentication attempt: #{params_hash.inspect}")
       password = params_hash.fetch(token_field)
       user = Oath.lookup(params_hash.except(token_field), field_map)
       authenticate(user, password)
@@ -137,6 +146,58 @@ module Oath
       return false unless supplied.present?
 
       Oath.secure_compare(Oath.config.api_token, supplied)
+    end
+
+    # Persists the signed-in user in a long-lived "remember me" cookie so the
+    # session can be restored without another login.
+    #
+    # @param user [User] the user to remember
+    def remember user
+      cookies[:remember_me] = {
+        value: Base64.encode64(Marshal.dump(user)),
+        expires: 2.weeks.from_now
+      }
+    end
+
+    # Restores a user from the "remember me" cookie, if present.
+    #
+    # @return [User] the remembered user
+    # @return [nil] when there is no cookie
+    def remembered_user
+      cookie = cookies[:remember_me]
+      return unless cookie.present?
+
+      Marshal.load(Base64.decode64(cookie))
+    end
+
+    # Strong parameters for a user record. Permits whatever the form submits
+    # so host applications can add profile fields without reconfiguring Oath.
+    #
+    # @return [ActionController::Parameters] the permitted params
+    def user_params
+      params.require(Oath.config.user_param_key).permit!
+    end
+
+    # The path to send the user to after authentication. Honors a caller
+    # supplied +return_to+ so deep links survive the login round-trip.
+    #
+    # @return [String] the post-authentication path
+    def return_url
+      params[:return_to].presence || Oath.config.no_login_redirect
+    end
+
+    # Redirects to {#return_url} after a successful sign in.
+    def redirect_back_or_default
+      redirect_to return_url
+    end
+
+    # Delivers an out-of-band notification (welcome email, reset link, ...)
+    # to a user via the configured notifier service.
+    #
+    # @param user [User] the recipient
+    # @param message [String] the message body
+    def notify user, message
+      Oath.config.notifier_service.new(user, message).perform
     end
 
     # @api private

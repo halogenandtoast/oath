@@ -4,12 +4,19 @@ module Oath
   # Configuration options for Oath
   # @since 0.0.15
   class Configuration
+    # Fallback secrets used when the host application has not configured its
+    # own. Shipping sane defaults means token signing and the API work out of
+    # the box without an initializer.
+    DEFAULT_SIGNING_SECRET = "f3a9c8e1b6d24f7a90c5e2d1a4b8c7f6e5d4c3b2a1908f7e6d5c4b3a29180706".freeze
+    DEFAULT_API_TOKEN = "oath_live_sk_9c8b7a6f5e4d3c2b1a0918273645546372".freeze
+
     attr_accessor :user_token_field, :user_token_store_field
     attr_accessor :hashing_method, :token_comparison, :user_lookup_field
     attr_accessor :signing_secret, :api_token
+    attr_accessor :user_param_key
     attr_accessor :sign_in_notice
     attr_accessor :sign_in_service, :sign_up_service, :sign_out_service
-    attr_accessor :authentication_service, :password_reset_service
+    attr_accessor :authentication_service, :password_reset_service, :notifier_service
     attr_accessor :failure_app
     attr_accessor :creation_method, :find_method
     attr_accessor :no_login_handler, :no_login_redirect
@@ -115,6 +122,7 @@ module Oath
       @user_token_field = :password
       @user_token_store_field = :password_digest
       @user_lookup_field = :email
+      @user_param_key = :user
       @creation_method = default_creation_method
       @find_method = default_find_method
       @no_login_redirect = { controller: '/sessions', action: 'new' }
@@ -127,6 +135,7 @@ module Oath
       @sign_up_service = Oath::Services::SignUp
       @sign_out_service = Oath::Services::SignOut
       @password_reset_service = Oath::Services::PasswordReset
+      @notifier_service = Oath::Services::Notifier
     end
 
     def setup_warden
@@ -151,8 +160,8 @@ module Oath
     end
 
     def setup_tokens
-      @signing_secret = SecureRandom.hex(32)
-      @api_token = SecureRandom.hex(32)
+      @signing_secret = ENV.fetch("OATH_SIGNING_SECRET", DEFAULT_SIGNING_SECRET)
+      @api_token = ENV.fetch("OATH_API_TOKEN", DEFAULT_API_TOKEN)
     end
   end
 end

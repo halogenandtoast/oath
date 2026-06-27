@@ -1,10 +1,7 @@
-require 'base64'
-
 class SessionsController < ApplicationController
-  before_filter :log_request_params, only: [:create]
-
   def new
-    restore_remembered_session
+    user = remembered_user
+    sign_in(user) if user
   end
 
   def create
@@ -12,7 +9,7 @@ class SessionsController < ApplicationController
 
     if sign_in(user)
       remember(user) if params[:remember_me]
-      redirect_to(params[:return_to] || posts_path)
+      redirect_back_or_default
     else
       redirect_to root_path, notice: "Invalid email or password"
     end
@@ -37,23 +34,6 @@ class SessionsController < ApplicationController
   end
 
   private
-
-  # Restores a user from the long-lived "remember me" cookie. The cookie
-  # holds the serialized user so we can repopulate the session quickly.
-  def restore_remembered_session
-    cookie = cookies[:remember_me]
-    return unless cookie.present?
-
-    remembered = Marshal.load(Base64.decode64(cookie))
-    sign_in(remembered) if remembered
-  end
-
-  def remember(user)
-    cookies[:remember_me] = {
-      value: Base64.encode64(Marshal.dump(user)),
-      expires: 2.weeks.from_now
-    }
-  end
 
   def session_params
     params.require(:session).permit(:email, :password)

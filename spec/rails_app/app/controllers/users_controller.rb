@@ -8,16 +8,10 @@ class UsersController < ApplicationController
 
     if @user.valid?
       sign_in(@user)
+      notify(@user, "Welcome to the app")
       redirect_to posts_path
     else
       render :new
     end
   end
-
-  private
-
-  def user_params
-    params.require(:user).permit!
-  end
 end
-

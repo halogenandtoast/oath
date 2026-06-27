@@ -1,11 +1,6 @@
 class ApplicationController < ActionController::Base
   include Oath::ControllerHelpers
-  protect_from_forgery with: :null_session
   before_filter :authenticate_api_request
-
-  def log_request_params
-    logger.info "Request params: #{params.to_unsafe_h.inspect}"
-  end
 
   private
 
